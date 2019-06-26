@@ -44,15 +44,22 @@ SOURCES += \
     main.cpp \
     managers/delaunaymanager.cpp \
     utils/delaunay_checker.cpp \
-    utils/fileutils.cpp
-
+    utils/fileutils.cpp \
+    data_structures/triangle.cpp \
+    data_structures/dag.cpp \
+    algorithms/delauneytriangulation.cpp
+    data_structures/triangle.cpp
 FORMS += \
     managers/delaunaymanager.ui
 
 HEADERS += \
     managers/delaunaymanager.h \
     utils/delaunay_checker.h \
-    utils/fileutils.h
+    utils/fileutils.h \
+    data_structures/triangle.h \
+    data_structures/dag.h \
+    algorithms/delauneytriangulation.h
+
 
 
 
