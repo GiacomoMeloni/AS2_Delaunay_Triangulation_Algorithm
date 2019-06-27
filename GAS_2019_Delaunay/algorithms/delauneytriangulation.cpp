@@ -44,4 +44,28 @@ unsigned int DelauneyTriangulation::findPointPosition(cg3::Point2Dd newPoint){
 
 void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){
     unsigned int nodeIndex = findPointPosition(newPoint);
+
+    //Split the current triangle
+    Triangle firstSplit(
+                newPoint,
+                triangles[dag[nodeIndex].getTriangleIndex()].getV1(),
+                triangles[dag[nodeIndex].getTriangleIndex()].getV2());
+    this->triangles.push_back(firstSplit);
+    this->dag.push_back(*new DAG(triangles.size()-1));
+
+    //Split the current triangle
+    Triangle secondSplit(
+                newPoint,
+                triangles[dag[nodeIndex].getTriangleIndex()].getV1(),
+                triangles[dag[nodeIndex].getTriangleIndex()].getV3());
+    this->triangles.push_back(secondSplit);
+    this->dag.push_back(*new DAG(triangles.size()-1));
+
+    //Split the current triangle
+    Triangle thirdSplit(
+                newPoint,
+                triangles[dag[nodeIndex].getTriangleIndex()].getV2(),
+                triangles[dag[nodeIndex].getTriangleIndex()].getV3());
+    this->triangles.push_back(thirdSplit);
+    this->dag.push_back(*new DAG(triangles.size()-1));
 }
