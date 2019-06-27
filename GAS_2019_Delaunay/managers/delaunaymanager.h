@@ -7,6 +7,10 @@
 
 #include <cg3/viewer/drawable_objects/2d/drawable_bounding_box2d.h>
 
+#include "../data_structures/dag.h"
+#include "../data_structures/triangle.h"
+#include "../algorithms/delauneytriangulation.h"
+
 
 namespace Ui {
     class DelaunayManager;
@@ -41,7 +45,8 @@ private:
     //Declare your private attributes here
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+    Triangle boundingTriangle;
+    DelauneyTriangulation triangulation;
 
     /********************************************************************************************************************/
 

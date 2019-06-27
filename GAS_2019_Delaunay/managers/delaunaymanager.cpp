@@ -13,10 +13,6 @@
 #include <cg3/data_structures/arrays/arrays.h>
 #include <cg3/utilities/timer.h>
 
-#include "../data_structures/dag.h"
-#include "../data_structures/triangle.h"
-#include "../algorithms/delauneytriangulation.h"
-
 
 //Limits for the bounding box
 //It defines where points can be added
@@ -81,8 +77,8 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //for member initialization.
     /********************************************************************************************************************/
 
-    Triangle* boundingTriangle = new Triangle(BT_P1,BT_P2,BT_P3);
-    DelauneyTriangulation* triangulation = new DelauneyTriangulation(*boundingTriangle);
+    this->boundingTriangle = Triangle(BT_P1,BT_P2,BT_P3);
+    this->triangulation = DelaunayTriangulation(boundingTriangle);
 
     /********************************************************************************************************************/
 }
@@ -146,6 +142,9 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     //fills your output Triangulation data structure.
     /********************************************************************************************************************/
 
+    for (unsigned int i=0; i<inputPoints.size();i++){
+        triangulation.addPoint(inputPoints[i]);
+    }
     /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
 
     /********************************************************************************************************************/
