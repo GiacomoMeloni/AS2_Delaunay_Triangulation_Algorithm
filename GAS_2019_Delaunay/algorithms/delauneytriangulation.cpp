@@ -12,13 +12,34 @@ DelauneyTriangulation::DelauneyTriangulation(Triangle boundingTriangle){
 
 unsigned int DelauneyTriangulation::findPointPosition(cg3::Point2Dd newPoint){
     bool found = false;
-    int i = 0;
+    unsigned int i = 0;
     while (found == false){
-        if (!dag[i].gotChildrens()){
+        if (dag[i].isALeaf()){
             found = true;
-        }else if ()
-    }
+            //check first children
+        }else if (cg3::isPointLyingInTriangle(
+                      this->triangles[dag[i].getChildrensIndex()[0]].getV1(),
+                      this->triangles[dag[i].getChildrensIndex()[0]].getV2(),
+                      this->triangles[dag[i].getChildrensIndex()[0]].getV3(),
+                      newPoint,true)){
+            i = dag[i].getChildrensIndex()[0];
+            //check second children
+        }else if (cg3::isPointLyingInTriangle(
+                      this->triangles[dag[i].getChildrensIndex()[1]].getV1(),
+                      this->triangles[dag[i].getChildrensIndex()[1]].getV2(),
+                      this->triangles[dag[i].getChildrensIndex()[1]].getV3(),
+                      newPoint,true)){
+            i = dag[i].getChildrensIndex()[1];
+            //check third children
+        }else if (cg3::isPointLyingInTriangle(
+                      this->triangles[dag[i].getChildrensIndex()[2]].getV1(),
+                      this->triangles[dag[i].getChildrensIndex()[2]].getV2(),
+                      this->triangles[dag[i].getChildrensIndex()[2]].getV3(),
+                      newPoint,true)){
+            i = dag[i].getChildrensIndex()[2];
+        }
     return i;
+    }
 }
 
 void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){

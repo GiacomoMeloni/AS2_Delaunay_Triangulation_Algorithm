@@ -21,10 +21,6 @@ Triangle::Triangle(const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Po
     if (!checkOrientationCounterclockwise(this->_v1,this->_v2,this->_v3)){
         orderingCounterClockwise();
     }
-
-    this->checked = false;
-
-    this->dagNodeIndex = 0;
 }
 
 /**

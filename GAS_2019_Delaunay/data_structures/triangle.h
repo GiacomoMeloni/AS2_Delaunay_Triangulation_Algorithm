@@ -9,7 +9,6 @@ class Triangle
     public:
         Triangle();
         Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3);
-        Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3);
 
         inline const cg3::Point2Dd getV1() const {
             return this->_v1;
@@ -27,10 +26,6 @@ class Triangle
             vertices.push_back(this->_v2);
             vertices.push_back(this->_v3);
             return vertices;
-        }
-
-        inline unsigned int getIndex() const {
-            return this->dagNodeIndex;
         }
 
         inline void setV1(cg3::Point2Dd v1){
@@ -71,9 +66,6 @@ class Triangle
         cg3::Point2Dd _v1;
         cg3::Point2Dd _v2;
         cg3::Point2Dd _v3;
-
-        bool checked;
-        unsigned int dagNodeIndex;
 
 };
 

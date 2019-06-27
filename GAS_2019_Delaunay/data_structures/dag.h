@@ -20,8 +20,8 @@ class DAG
             return (this->_indexChildrens.size()>=3) ? false : true;
         }
 
-        inline bool gotChildrens (){
-            return (_indexChildrens.size()>0) ? true : false;
+        inline bool isALeaf (){
+            return (_indexChildrens.size()==0) ? true : false;
         }
 
         inline unsigned int getTriangleIndex(){
