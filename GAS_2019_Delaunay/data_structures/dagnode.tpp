@@ -64,7 +64,7 @@ inline bool DagNode::isALeaf () const{
  * @param point - the reference of the newPoint to check
  * @return true if the point lies in the node's triangle, false otherwise
  */
-inline bool DagNode::isPointInTriangle(cg3::Point2Dd &point) const{
+inline bool DagNode::isPointInTriangle(const cg3::Point2Dd &point) const{
     return cg3::isPointLyingInTriangle(
                 this->_triangle.getV1(),
                 this->_triangle.getV1(),

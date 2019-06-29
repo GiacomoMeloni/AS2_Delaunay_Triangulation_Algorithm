@@ -1,6 +1,6 @@
 #include "dagnode.h"
 
-DagNode* DagNode::getChildContainsPoint(cg3::Point2Dd &point){
+DagNode* DagNode::getChildContainsPoint(const cg3::Point2Dd &point){
     for (DagNode *node : getChildrens()){
         if (cg3::isPointLyingInTriangle(
                     node->getTriangle().getV1(),

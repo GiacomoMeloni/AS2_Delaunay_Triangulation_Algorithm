@@ -11,20 +11,22 @@
 class DelauneyTriangulation
 {
     public:
-        DelauneyTriangulation();
-        DelauneyTriangulation(Triangle boundingTriangle);
-        void addPoint (cg3::Point2Dd newPoint);
-        unsigned long findPointPosition(cg3::Point2Dd newPoint);
+        inline DelauneyTriangulation();
+        inline DelauneyTriangulation(const Triangle &boundingTriangle);
 
-        inline std::vector<cg3::Point2Dd> getPoints() {
-            return this->points;
-        }
+        inline const std::vector<Triangle> getTriangles() const;
+        inline DagNode* getDAG() const;
+        inline const std::vector<cg3::Point2Dd> getPoints();
+        inline void addPointToList(const cg3::Point2Dd &newPoint);
+
+        std::vector<Triangle> makeTriangles(DagNode* currentNode, const cg3::Point2Dd &newPoint);
+        void makeSplit (DagNode* currentNode, std::vector<Triangle> &newTriangles);
+        void addPointToTriangulation (const cg3::Point2Dd &newPoint);
 
     protected:
-        std::vector<Triangle> triangles;
-        std::vector<DAG> dag;
-        std::vector<cg3::Point2Dd> points;
-//        std::vector<cg3::Point2Dd> points;
+        std::vector<Triangle> _delauneyTriangles;
+        DagNode* _dag;
+        std::vector<cg3::Point2Dd> _points;
 };
 
 #endif // DELAUNEYTRIANGULATION_H

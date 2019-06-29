@@ -16,7 +16,7 @@ class DagNode
         /* --- Getter --- */
         inline Triangle getTriangle() const;
         inline std::vector<DagNode*> getChildrens() const;
-        DagNode* getChildContainsPoint(cg3::Point2Dd &point);
+        DagNode* getChildContainsPoint(const cg3::Point2Dd &point);
 
         /* --- Setter --- */
         inline void addChild(DagNode* newNode);
@@ -24,7 +24,7 @@ class DagNode
         /* --- Methods --- */
         inline bool checkNumberOfChildrens() const;
         inline bool isALeaf() const;
-        inline bool isPointInTriangle(cg3::Point2Dd &point) const;
+        inline bool isPointInTriangle(const cg3::Point2Dd &point) const;
 
 
     protected:

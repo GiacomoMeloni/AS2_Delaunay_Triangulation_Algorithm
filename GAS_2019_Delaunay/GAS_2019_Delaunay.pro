@@ -52,7 +52,8 @@ SOURCES += \
     data_structures/dagnode.cpp \
     data_structures/dagnode.tpp \
     data_structures/triangle.cpp \
-    data_structures/triangle.tpp
+    data_structures/triangle.tpp \
+    algorithms/delauneytriangulation.tpp
 FORMS += \
     managers/delaunaymanager.ui
 
