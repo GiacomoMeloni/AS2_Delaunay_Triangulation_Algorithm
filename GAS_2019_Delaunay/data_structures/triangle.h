@@ -30,6 +30,8 @@ class Triangle
         inline void setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &v2, const cg3::Point2Dd &v3);
 
         /* --- Methods --- */
+        inline cg3::Point2Dd getCenter() const;
+        inline double getHypotenuse() const;
         inline bool checkOrientationCounterclockwise(const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3) const;
         inline void orderingCounterClockwise();
 

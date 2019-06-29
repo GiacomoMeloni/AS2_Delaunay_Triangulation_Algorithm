@@ -114,6 +114,25 @@ inline void Triangle::setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &
     this->_v3 = v3;
 }
 
+inline cg3::Point2Dd Triangle::getCenter() const{
+    double centX, centY;
+    for (cg3::Point2Dd p : getVertices()){
+        centX += p.x();
+        centY += p.y();
+    }
+    centX /= getVertices().size();
+    centY /= getVertices().size();
+
+    return *new cg3::Point2Dd (centX,centY);
+}
+
+inline double Triangle::getHypotenuse() const{
+    return std::max(
+                this->getV1().dist(this->getV2()),
+                this->getV1().dist(this->getV3()),
+                this->getV2().dist(this->getV3()));
+}
+
 /**
  * @brief Check if the triangle vertices are in counterclockwise order
  * @param v1 - reference of the first vertex
