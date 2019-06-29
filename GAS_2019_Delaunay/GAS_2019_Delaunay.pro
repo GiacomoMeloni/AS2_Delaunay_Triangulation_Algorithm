@@ -46,11 +46,13 @@ SOURCES += \
     utils/delaunay_checker.cpp \
     utils/fileutils.cpp \
     data_structures/triangle.cpp \
-    data_structures/dag.cpp \
     algorithms/delauneytriangulation.cpp \
     managers/drawabletriangle.cpp \
-    managers/drawabledelauneytriangulation.cpp
-    data_structures/triangle.cpp
+    managers/drawabledelauneytriangulation.cpp \
+    data_structures/dagnode.cpp \
+    data_structures/dagnode.tpp \
+    data_structures/triangle.cpp \
+    data_structures/triangle.tpp
 FORMS += \
     managers/delaunaymanager.ui
 
@@ -59,11 +61,10 @@ HEADERS += \
     utils/delaunay_checker.h \
     utils/fileutils.h \
     data_structures/triangle.h \
-    data_structures/dag.h \
     algorithms/delauneytriangulation.h \
     managers/drawabletriangle.h \
     managers/drawabledelauneytriangulation.h \
-    data_structures/triangle.tpp
+    data_structures/dagnode.h \
 
 
 

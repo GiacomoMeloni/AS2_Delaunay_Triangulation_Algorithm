@@ -2,7 +2,7 @@
 #define DELAUNEYTRIANGULATION_H
 
 #include "../data_structures/triangle.h"
-#include "../data_structures/dag.h"
+#include "../data_structures/dagnode.h"
 #include <cg3/geometry/2d/point2d.h>
 #include <cg3/geometry/2d/utils2d.h>
 
