@@ -7,12 +7,15 @@ DelauneyTriangulation::DelauneyTriangulation()
 
 DelauneyTriangulation::DelauneyTriangulation(Triangle boundingTriangle){
     this->triangles.push_back(boundingTriangle);
-    this->dag.push_back(*new DAG(boundingTriangle.getIndex()));
+    this->dag.push_back(*new DAG(triangles.size()-1));
+    this->points.push_back(boundingTriangle.getV1());
+    this->points.push_back(boundingTriangle.getV2());
+    this->points.push_back(boundingTriangle.getV3());
 }
 
-unsigned int DelauneyTriangulation::findPointPosition(cg3::Point2Dd newPoint){
+unsigned long DelauneyTriangulation::findPointPosition(cg3::Point2Dd newPoint){
     bool found = false;
-    unsigned int i = 0;
+    unsigned long i = 0;
     while (found == false){
         if (dag[i].isALeaf()){
             found = true;
@@ -38,12 +41,14 @@ unsigned int DelauneyTriangulation::findPointPosition(cg3::Point2Dd newPoint){
                       newPoint,true)){
             i = dag[i].getChildrensIndex()[2];
         }
-    return i;
     }
+    return i;
 }
 
 void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){
-    unsigned int nodeIndex = findPointPosition(newPoint);
+    this->points.push_back(newPoint);
+
+    unsigned long nodeIndex = findPointPosition(newPoint);
 
     //Split the current triangle
     Triangle firstSplit(
@@ -52,6 +57,7 @@ void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){
                 triangles[dag[nodeIndex].getTriangleIndex()].getV2());
     this->triangles.push_back(firstSplit);
     this->dag.push_back(*new DAG(triangles.size()-1));
+    this->dag[nodeIndex].addChild(dag.size()-1);
 
     //Split the current triangle
     Triangle secondSplit(
@@ -60,6 +66,7 @@ void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){
                 triangles[dag[nodeIndex].getTriangleIndex()].getV3());
     this->triangles.push_back(secondSplit);
     this->dag.push_back(*new DAG(triangles.size()-1));
+    this->dag[nodeIndex].addChild(dag.size()-1);
 
     //Split the current triangle
     Triangle thirdSplit(
@@ -68,4 +75,5 @@ void DelauneyTriangulation::addPoint(cg3::Point2Dd newPoint){
                 triangles[dag[nodeIndex].getTriangleIndex()].getV3());
     this->triangles.push_back(thirdSplit);
     this->dag.push_back(*new DAG(triangles.size()-1));
+    this->dag[nodeIndex].addChild(dag.size()-1);
 }

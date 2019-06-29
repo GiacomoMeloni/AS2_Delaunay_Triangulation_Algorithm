@@ -78,7 +78,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     /********************************************************************************************************************/
 
     this->boundingTriangle = Triangle(BT_P1,BT_P2,BT_P3);
-    this->triangulation = DelaunayTriangulation(boundingTriangle);
+    this->triangulation = *new DelauneyTriangulation(boundingTriangle);
 
     /********************************************************************************************************************/
 }

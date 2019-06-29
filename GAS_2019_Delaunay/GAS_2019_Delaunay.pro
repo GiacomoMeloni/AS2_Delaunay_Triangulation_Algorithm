@@ -47,7 +47,9 @@ SOURCES += \
     utils/fileutils.cpp \
     data_structures/triangle.cpp \
     data_structures/dag.cpp \
-    algorithms/delauneytriangulation.cpp
+    algorithms/delauneytriangulation.cpp \
+    managers/drawabletriangle.cpp \
+    managers/drawabledelauneytriangulation.cpp
     data_structures/triangle.cpp
 FORMS += \
     managers/delaunaymanager.ui
@@ -58,7 +60,10 @@ HEADERS += \
     utils/fileutils.h \
     data_structures/triangle.h \
     data_structures/dag.h \
-    algorithms/delauneytriangulation.h
+    algorithms/delauneytriangulation.h \
+    managers/drawabletriangle.h \
+    managers/drawabledelauneytriangulation.h \
+    data_structures/triangle.tpp
 
 
 

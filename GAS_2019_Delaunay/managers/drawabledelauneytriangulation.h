@@ -1,11 +1,28 @@
-#ifndef DRAWABLEDELAUNEYTRIANGULATION_H
-#define DRAWABLEDELAUNEYTRIANGULATION_H
+#ifndef DRAWABLEDELAUNAYTRIANGULATION_H
+#define DRAWABLEDELAUNAYTRIANGULATION_H
 
+#include "cg3/viewer/interfaces/drawable_object.h"
+#include "../algorithms/delauneytriangulation.h"
 
-class DrawableDelauneyTriangulation
+class DrawableDelaunayTriangulation :public DelauneyTriangulation, public cg3::DrawableObject
 {
-public:
-    DrawableDelauneyTriangulation();
+    public:
+        DrawableDelaunayTriangulation();
+        DrawableDelaunayTriangulation(Triangle boundingTriangle);
+
+        void draw();
+        cg3::Pointd sceneCenter() const;
+        double sceneRadius() const;
+
+
+    private:
+        void drawEdges();
+        void drawPoints();
+
+        int pointSize;
+        QColor pointColor;
+        int edgeWidth;
+        QColor edgeColor;
 };
 
-#endif // DRAWABLEDELAUNEYTRIANGULATION_H
+#endif // DRAWABLEDELAUNAYTRIANGULATION_H

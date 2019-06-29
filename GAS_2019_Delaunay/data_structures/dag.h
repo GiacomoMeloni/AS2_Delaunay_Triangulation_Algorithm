@@ -8,9 +8,9 @@ class DAG
 {
     public:
         DAG();
-        DAG(const unsigned int indexTriangle);
+        DAG(const unsigned long indexTriangle);
 
-        inline void addChild(unsigned int indexNewTriangle){
+        inline void addChild(unsigned long indexNewTriangle){
             if (!checkSizeOfChildrens()){
                 this->_indexChildrens.push_back(indexNewTriangle);
             }
@@ -24,22 +24,22 @@ class DAG
             return (_indexChildrens.size()==0) ? true : false;
         }
 
-        inline unsigned int getTriangleIndex(){
+        inline unsigned long getTriangleIndex(){
             return this->_indexTriangle;
         }
 
-        inline std::vector<unsigned int> getChildrensIndex(){
+        inline std::vector<unsigned long> getChildrensIndex(){
             return this->_indexChildrens;
         }
 
-        inline unsigned int getDAGNodeIndex(){
+        inline unsigned long getDAGNodeIndex(){
             return this->_indexNode;
         }
 
     protected:
-        unsigned int _indexTriangle;
-        std::vector<unsigned int> _indexChildrens;
-        unsigned int _indexNode;
+        unsigned long _indexTriangle;
+        std::vector<unsigned long> _indexChildrens;
+        unsigned long _indexNode;
 };
 
 #endif // DAG_H

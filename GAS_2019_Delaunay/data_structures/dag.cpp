@@ -5,7 +5,7 @@ DAG::DAG()
 
 }
 
-DAG::DAG(const unsigned int indexTriangle)
+DAG::DAG(const unsigned long indexTriangle)
 {
     this->_indexTriangle = indexTriangle;
     this->_indexChildrens = {};
