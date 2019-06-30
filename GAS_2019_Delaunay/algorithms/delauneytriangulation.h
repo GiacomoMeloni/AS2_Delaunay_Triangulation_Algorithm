@@ -16,7 +16,7 @@ class DelauneyTriangulation
 
         inline const std::vector<Triangle> getTriangles() const;
         inline DagNode* getDAG() const;
-        inline const std::vector<cg3::Point2Dd> getPoints();
+        inline const std::vector<cg3::Point2Dd> getPoints() const;
         inline void addPointToList(const cg3::Point2Dd &newPoint);
 
         std::vector<Triangle> makeTriangles(DagNode* currentNode, const cg3::Point2Dd &newPoint);
@@ -28,5 +28,31 @@ class DelauneyTriangulation
         DagNode* _dag;
         std::vector<cg3::Point2Dd> _points;
 };
+
+inline DelauneyTriangulation::DelauneyTriangulation(){
+
+}
+
+inline DelauneyTriangulation::DelauneyTriangulation(const Triangle &boundingTriangle){
+    this->_delauneyTriangles.push_back(boundingTriangle);
+    this->_dag = new DagNode (boundingTriangle);
+    this->_points = {};
+}
+
+inline const std::vector<Triangle> DelauneyTriangulation::getTriangles() const{
+    return this->_delauneyTriangles;
+}
+
+inline DagNode* DelauneyTriangulation::getDAG() const{
+    return this->_dag;
+}
+
+inline const std::vector<cg3::Point2Dd> DelauneyTriangulation::getPoints() const{
+    return this->_points;
+}
+
+inline void DelauneyTriangulation::addPointToList(const cg3::Point2Dd &newPoint) {
+    this->_points.push_back(newPoint);
+}
 
 #endif // DELAUNEYTRIANGULATION_H

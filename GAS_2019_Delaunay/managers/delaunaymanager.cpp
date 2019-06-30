@@ -53,7 +53,8 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     ui(new Ui::DelaunayManager),
     mainWindow(static_cast<cg3::viewer::MainWindow&>(*parent)),
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
-                cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX))    
+                cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
+    boundingTriangle(BT_P1,BT_P2,BT_P3)
 {
     //UI setup
     ui->setupUi(this);
@@ -66,6 +67,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //Add the drawable object to the mainWindow.
     //The mainWindow will take care of rendering the bounding box
     mainWindow.pushObj(&boundingBox, "Bounding box");
+    mainWindow.pushObj(&boundingTriangle, "Bounding triangle");
 
     //This updates the canvas (call it whenever you change or
     //add some drawable object)
@@ -77,8 +79,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //for member initialization.
     /********************************************************************************************************************/
 
-    this->boundingTriangle = Triangle(BT_P1,BT_P2,BT_P3);
-    this->triangulation = *new DelauneyTriangulation(boundingTriangle);
+
 
     /********************************************************************************************************************/
 }
@@ -122,6 +123,7 @@ DelaunayManager::~DelaunayManager() {
 
     //Delete the bounding box drawable object
     mainWindow.deleteObj(&boundingBox);
+    mainWindow.deleteObj(&boundingTriangle);
 
     delete ui; //Delete interface
 }
@@ -142,9 +144,6 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     //fills your output Triangulation data structure.
     /********************************************************************************************************************/
 
-    for (unsigned int i=0; i<inputPoints.size();i++){
-        triangulation.addPoint(inputPoints[i]);
-    }
     /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
 
     /********************************************************************************************************************/
@@ -241,7 +240,7 @@ void DelaunayManager::setVisibilityBoundingTriangle(const bool visible)
     //Set the visibility of your bounding triangle here
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+    mainWindow.setObjVisibility(&boundingTriangle,visible);
 
     /********************************************************************************************************************/
     CG3_SUPPRESS_WARNING(visible);

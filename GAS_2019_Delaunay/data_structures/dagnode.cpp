@@ -8,8 +8,7 @@ DagNode* DagNode::getChildContainsPoint(const cg3::Point2Dd &point){
                     node->getTriangle().getV2(),
                     point,true)){
             return node;
-        }else {
-            return nullptr;
         }
     }
+    return nullptr;
 }

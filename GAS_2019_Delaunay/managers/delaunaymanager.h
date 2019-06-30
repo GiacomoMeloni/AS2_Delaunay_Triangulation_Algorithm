@@ -7,8 +7,7 @@
 
 #include <cg3/viewer/drawable_objects/2d/drawable_bounding_box2d.h>
 
-#include "../data_structures/dag.h"
-#include "../data_structures/triangle.h"
+#include <../drawable/drawableboundingtriangle.h>
 #include "../algorithms/delauneytriangulation.h"
 
 
@@ -45,8 +44,7 @@ private:
     //Declare your private attributes here
     /********************************************************************************************************************/
 
-    Triangle boundingTriangle;
-    DelauneyTriangulation triangulation;
+    DrawableBoundingTriangle boundingTriangle;
 
     /********************************************************************************************************************/
 
