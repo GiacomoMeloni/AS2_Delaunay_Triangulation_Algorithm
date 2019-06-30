@@ -88,7 +88,7 @@ inline bool DagNode::checkNumberOfChildrens () const{
  * @return true if the dag node doesn't got any child, false otherwise
  */
 inline bool DagNode::isALeaf () const{
-    return (_childrens.size()==0) ? true : false;
+    return _childrens.empty();
 }
 
 /**

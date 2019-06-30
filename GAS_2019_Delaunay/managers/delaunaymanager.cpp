@@ -54,7 +54,8 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     mainWindow(static_cast<cg3::viewer::MainWindow&>(*parent)),
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
-    boundingTriangle(BT_P1,BT_P2,BT_P3)
+    boundingTriangle(BT_P1,BT_P2,BT_P3),
+    delauneyTriangulation(boundingTriangle)
 {
     //UI setup
     ui->setupUi(this);
@@ -68,6 +69,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //The mainWindow will take care of rendering the bounding box
     mainWindow.pushObj(&boundingBox, "Bounding box");
     mainWindow.pushObj(&boundingTriangle, "Bounding triangle");
+    mainWindow.pushObj(&delauneyTriangulation, "Delauney Triangulation");
 
     //This updates the canvas (call it whenever you change or
     //add some drawable object)
@@ -144,7 +146,9 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     //fills your output Triangulation data structure.
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+    for (const cg3::Point2Dd &p : inputPoints){
+        delauneyTriangulation.addPointToTriangulation(p);
+    }
 
     /********************************************************************************************************************/
     CG3_SUPPRESS_WARNING(inputPoints);
@@ -158,7 +162,7 @@ void DelaunayManager::addPointToDelaunayTriangulation(const cg3::Point2Dd& p) {
     //Here you have to launch the incremental algorithm for the insertion of a new single point into the current triangulation.
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+    delauneyTriangulation.addPointToTriangulation(p);
 
     /********************************************************************************************************************/
     CG3_SUPPRESS_WARNING(p);

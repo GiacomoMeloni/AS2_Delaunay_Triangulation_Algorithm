@@ -5,7 +5,7 @@ DagNode* DagNode::getChildContainsPoint(const cg3::Point2Dd &point){
         if (cg3::isPointLyingInTriangle(
                     node->getTriangle().getV1(),
                     node->getTriangle().getV2(),
-                    node->getTriangle().getV2(),
+                    node->getTriangle().getV3(),
                     point,true)){
             return node;
         }

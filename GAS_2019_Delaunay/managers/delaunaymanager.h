@@ -7,8 +7,8 @@
 
 #include <cg3/viewer/drawable_objects/2d/drawable_bounding_box2d.h>
 
-#include <../drawable/drawableboundingtriangle.h>
-#include "../algorithms/delauneytriangulation.h"
+#include "../drawable/drawableboundingtriangle.h"
+#include "../drawable/drawabledelauneytriangulation.h"
 
 
 namespace Ui {
@@ -45,6 +45,7 @@ private:
     /********************************************************************************************************************/
 
     DrawableBoundingTriangle boundingTriangle;
+    DrawableDelauneyTriangulation delauneyTriangulation;
 
     /********************************************************************************************************************/
 

@@ -1,6 +1,6 @@
 #include "delauneytriangulation.h"
 
-std::vector<Triangle> DelauneyTriangulation::makeTriangles(DagNode *currentNode, const cg3::Point2Dd &newPoint){
+std::vector<Triangle> DelauneyTriangulation::makeTriangles(DagNode* currentNode, const cg3::Point2Dd &newPoint){
     std::vector<Triangle> newTriangles;
 
     Triangle delta1 = *new Triangle(
@@ -39,7 +39,6 @@ void DelauneyTriangulation::addPointToTriangulation(const cg3::Point2Dd &newPoin
         if (check->isALeaf() /*&& check->isPointInTriangle(newPoint)*/){
             std::vector<Triangle> newTriangles = makeTriangles(check, newPoint);
             makeSplit(check, newTriangles);
-
             found = true;
         }else{
             check = check->getChildContainsPoint(newPoint);

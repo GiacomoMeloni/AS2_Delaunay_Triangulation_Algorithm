@@ -56,12 +56,12 @@ inline Triangle::Triangle(){
  * @param v3 - reference of the third vertex
  */
 inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3){
-    if (!checkOrientationCounterclockwise(v1,v2,v3)){
-        this->orderingCounterClockwise();
-
     this->_v1 = v1;
     this->_v2 = v2;
     this->_v3 = v3;
+
+    if (!checkOrientationCounterclockwise(this->_v1,this->_v2,this->_v3)){
+        this->orderingCounterClockwise();
     }
 }
 
