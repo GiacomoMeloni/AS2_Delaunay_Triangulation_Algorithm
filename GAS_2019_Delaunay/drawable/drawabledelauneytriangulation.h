@@ -32,26 +32,25 @@ class DrawableDelauneyTriangulation : public cg3::DrawableObject, public Delaune
 };
 
 inline DrawableDelauneyTriangulation::DrawableDelauneyTriangulation() {
-    setEdgeColor(*new QColor(0,0,0));
+    setEdgeColor(*new QColor(0,0,255));
     setPointColor(*new QColor(255,0,0));
     setEdgeWidth(1);
-    setPointSize(2);
+    setPointSize(5);
 }
 
 inline DrawableDelauneyTriangulation::DrawableDelauneyTriangulation(const Triangle &boundingTriangle):DelauneyTriangulation (boundingTriangle) {
-    setEdgeColor(*new QColor(0,0,0));
+    setEdgeColor(*new QColor(0,0,255));
     setPointColor(*new QColor(255,0,0));
     setEdgeWidth(1);
-    setPointSize(2);
+    setPointSize(5);
 }
 
 inline cg3::Pointd DrawableDelauneyTriangulation::sceneCenter() const{
-    cg3::Point2Dd center = this->getDAG()->getTriangle().getCenter();
-    return *new cg3::Pointd (center.x(),center.y(), 0);
+    return *new cg3::Pointd (0, 0, 0);
 }
 
 inline double DrawableDelauneyTriangulation::sceneRadius() const{
-    return this->getDAG()->getTriangle().getHypotenuse()/2;
+    return 1e+6;
 }
 
 inline void DrawableDelauneyTriangulation::setEdgeColor(const QColor &c){

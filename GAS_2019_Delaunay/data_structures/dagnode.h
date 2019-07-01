@@ -11,25 +11,31 @@ class DagNode
 
         /* --- Constructor --- */
         inline DagNode();
-        inline DagNode(const Triangle &triangle);
+        inline DagNode(size_t &idexOftriangle);
 
         /* --- Getter --- */
-        inline Triangle getTriangle() const;
+//        inline Triangle* getTriangle() const;
+        inline size_t getTriangleIndex() const;
         inline std::vector<DagNode*> getChildrens() const;
-        DagNode* getChildContainsPoint(const cg3::Point2Dd &point);
+        inline std::vector<size_t> getAdjacencies() const;
+        inline DagNode* getFirstChild() const;
+        inline DagNode* getSecondChild() const;
+        inline DagNode* getThirdChild() const;
 
         /* --- Setter --- */
         inline void addChild(DagNode* newNode);
+        inline void addAdjacencies(const size_t &indexOfTriangle);
 
         /* --- Methods --- */
         inline bool checkNumberOfChildrens() const;
         inline bool isALeaf() const;
-        inline bool isPointInTriangle(const cg3::Point2Dd &point) const;
 
 
     protected:
-        Triangle _triangle;
+//        Triangle _triangle;
+        size_t _triangleIndex;
         std::vector<DagNode*> _childrens;
+        std::vector<size_t> _adjacencies;
 };
 
 /**
@@ -40,20 +46,21 @@ inline DagNode::DagNode(){
 }
 
 /**
- * @brief Dag node constructor with the triangle's reference
- * @param triangle - the reference of the triangle
+ * @brief Dag node constructor with the triangle's index
+ * @param indexOfTriangle - the index of the triangle
  */
-inline DagNode::DagNode(const Triangle &triangle){
-    this->_triangle = triangle;
+inline DagNode::DagNode(size_t &indexOftriangle){
+    this->_triangleIndex = indexOftriangle;
     this->_childrens = {};
+    this->_adjacencies = {};
 }
 
 /**
- * @brief Get the triangle stored in the node
- * @return triangle - the triangle stored in the dag node
+ * @brief Get the triangle index stored in the node
+ * @return _triangleIndex - the triangle index stored in the dag node
  */
-inline Triangle DagNode::getTriangle() const{
-    return this->_triangle;
+inline size_t DagNode::getTriangleIndex() const{
+    return this->_triangleIndex;
 }
 
 /**
@@ -65,6 +72,26 @@ inline std::vector<DagNode*> DagNode::getChildrens() const{
 }
 
 /**
+ * @brief Get the list of triangle's indeces ajacent to the triangle pointed by the current node
+ * @return _ajacencies - the list of triangle's indeces adjacet with the current node's triangle
+ */
+inline std::vector<size_t> DagNode::getAdjacencies() const{
+    return this-> _adjacencies;
+}
+
+inline DagNode* DagNode::getFirstChild() const{
+    return this->_childrens[0];
+}
+
+inline DagNode* DagNode::getSecondChild() const{
+    return this->_childrens[1];
+}
+
+inline DagNode* DagNode::getThirdChild() const{
+    return this->_childrens[2];
+}
+
+/**
  * @brief Add a child in the list of the node
  * @param newNode - the pointer of the new dag node created
  * @return add the node in the list of childrens of the current dag node
@@ -73,6 +100,10 @@ inline void DagNode::addChild(DagNode* newNode){
     if (checkNumberOfChildrens()){
         this->_childrens.push_back(newNode);
     }
+}
+
+inline void DagNode::addAdjacencies(const size_t &indexOfTriangle){
+    this->_adjacencies.push_back(indexOfTriangle);
 }
 
 /**
@@ -89,19 +120,6 @@ inline bool DagNode::checkNumberOfChildrens () const{
  */
 inline bool DagNode::isALeaf () const{
     return _childrens.empty();
-}
-
-/**
- * @brief Check if a point is lying in the triangle inside the current dag node
- * @param point - the reference of the newPoint to check
- * @return true if the point lies in the node's triangle, false otherwise
- */
-inline bool DagNode::isPointInTriangle(const cg3::Point2Dd &point) const{
-    return cg3::isPointLyingInTriangle(
-                this->_triangle.getV1(),
-                this->_triangle.getV1(),
-                this->_triangle.getV1(),
-                point,true);
 }
 
 #endif // DAG_H

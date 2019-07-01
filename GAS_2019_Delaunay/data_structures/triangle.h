@@ -15,6 +15,7 @@ class Triangle
         /* --- Constructor --- */
         inline Triangle();
         inline Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3);
+        inline Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3, const bool &isALeaf);
 
         /* --- Getters --- */
         inline const cg3::Point2Dd getV1() const;
@@ -22,14 +23,17 @@ class Triangle
         inline const cg3::Point2Dd getV3() const;
         inline const std::vector<cg3::Point2Dd> getVertices() const;
         inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> getEdges() const;
+        inline bool getIsALeaf() const;
 
         /* --- Setters --- */
         inline void setV1(const cg3::Point2Dd &v);
         inline void setV2(const cg3::Point2Dd &v);
         inline void setV3(const cg3::Point2Dd &v);
         inline void setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &v2, const cg3::Point2Dd &v3);
+        inline void setIsALeaf(bool status);
 
         /* --- Methods --- */
+        inline bool isAdjacent(const Triangle &triangle);
         inline cg3::Point2Dd getCenter() const;
         inline double getHypotenuse() const;
         inline bool checkOrientationCounterclockwise(const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3) const;
@@ -39,6 +43,8 @@ class Triangle
         cg3::Point2Dd _v1;
         cg3::Point2Dd _v2;
         cg3::Point2Dd _v3;
+
+        bool _isALeaf;
 
 };
 
@@ -63,7 +69,22 @@ inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const
     if (!checkOrientationCounterclockwise(this->_v1,this->_v2,this->_v3)){
         this->orderingCounterClockwise();
     }
+
+    this->_isALeaf = false;
 }
+
+inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3, const bool &isALeaf){
+    this->_v1 = v1;
+    this->_v2 = v2;
+    this->_v3 = v3;
+    this->_isALeaf = isALeaf;
+
+    if (!checkOrientationCounterclockwise(this->_v1,this->_v2,this->_v3)){
+        this->orderingCounterClockwise();
+    }
+
+}
+
 
 /**
  * @brief Get the first vertex of the triangle
@@ -116,6 +137,10 @@ inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> Triangle::getEdges(
     return _edges;
 }
 
+inline bool Triangle::getIsALeaf() const{
+    return this->_isALeaf;
+}
+
 /**
  * @brief Set the value of the first vertex
  * @param v - reference of the new vertex value
@@ -154,6 +179,10 @@ inline void Triangle::setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &
     this->_v1 = v1;
     this->_v2 = v2;
     this->_v3 = v3;
+}
+
+inline void Triangle::setIsALeaf(bool status){
+    this->_isALeaf = status;
 }
 
 inline cg3::Point2Dd Triangle::getCenter() const{
@@ -201,6 +230,21 @@ inline void Triangle::orderingCounterClockwise(){
     temp = this->_v2;
     this->_v2 = this->_v3;
     this->_v3 = temp;
+}
+
+inline bool Triangle::isAdjacent(const Triangle &triangle){
+    bool firstcheck = false;
+
+    for (const cg3::Point2Dd &p : this->getVertices()){
+        for (const cg3::Point2Dd &q : triangle.getVertices()){
+            if (firstcheck == false && p == q){
+                firstcheck = true;
+            }else if (firstcheck == true && p == q){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 #endif // TRIANGLE_H

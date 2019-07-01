@@ -3,8 +3,10 @@
 void DrawableDelauneyTriangulation::draw() const
 {
     for (const Triangle &triangle : this->getTriangles()){
-        drawPoints(triangle);
-        drawEdges(triangle);
+        if (triangle.getIsALeaf()){
+            drawPoints(triangle);
+            drawEdges(triangle);
+        }
     }
 }
 

@@ -55,7 +55,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
     boundingTriangle(BT_P1,BT_P2,BT_P3),
-    delauneyTriangulation(boundingTriangle)
+    delauneyTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3))
 {
     //UI setup
     ui->setupUi(this);
@@ -68,7 +68,6 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //Add the drawable object to the mainWindow.
     //The mainWindow will take care of rendering the bounding box
     mainWindow.pushObj(&boundingBox, "Bounding box");
-    mainWindow.pushObj(&boundingTriangle, "Bounding triangle");
     mainWindow.pushObj(&delauneyTriangulation, "Delauney Triangulation");
 
     //This updates the canvas (call it whenever you change or
@@ -81,7 +80,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //for member initialization.
     /********************************************************************************************************************/
 
-
+    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
 
     /********************************************************************************************************************/
 }
