@@ -21,8 +21,8 @@ class DelauneyTriangulation
         inline void addPointToList(const cg3::Point2Dd &newPoint);
 
         cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
-        void updateAdjacencies(DagNode* father, DagNode* child, size_t &indexOfFirstBrother, size_t &indexOfSecondBrother);
-        void updateAdjacencies(DagNode* father, DagNode* child, size_t &brotherIndex);
+        void updateAdjacencies(DagNode* father, DagNode* child, DagNode* nodeOfFirstBrother, DagNode* nodeOfSecondBrother);
+        void updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNode* father_2, DagNode* child, DagNode* brotherNode);
         inline bool isPointInNode(DagNode* &currentNode, const cg3::Point2Dd &point) const;
         DagNode* getChildContainsPoint(DagNode* &currentNode, const cg3::Point2Dd &point);
         void makeSplits(DagNode* currentNode, const cg3::Point2Dd &newPoint);

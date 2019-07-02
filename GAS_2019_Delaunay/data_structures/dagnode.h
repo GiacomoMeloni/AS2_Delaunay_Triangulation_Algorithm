@@ -17,14 +17,14 @@ class DagNode
 //        inline Triangle* getTriangle() const;
         inline size_t getTriangleIndex() const;
         inline std::vector<DagNode*> getChildrens() const;
-        inline std::vector<size_t> getAdjacencies() const;
+        inline std::vector<DagNode*> getAdjacencies() const;
         inline DagNode* getFirstChild() const;
         inline DagNode* getSecondChild() const;
         inline DagNode* getThirdChild() const;
 
         /* --- Setter --- */
         inline void addChild(DagNode* newNode);
-        inline void addAdjacencies(const size_t &indexOfTriangle);
+        inline void addAdjacencies(DagNode* &adjacentNode);
 
         /* --- Methods --- */
         inline bool checkNumberOfChildrens() const;
@@ -35,7 +35,7 @@ class DagNode
 //        Triangle _triangle;
         size_t _triangleIndex;
         std::vector<DagNode*> _childrens;
-        std::vector<size_t> _adjacencies;
+        std::vector<DagNode*> _adjacencies;
 };
 
 /**
@@ -75,7 +75,7 @@ inline std::vector<DagNode*> DagNode::getChildrens() const{
  * @brief Get the list of triangle's indeces ajacent to the triangle pointed by the current node
  * @return _ajacencies - the list of triangle's indeces adjacet with the current node's triangle
  */
-inline std::vector<size_t> DagNode::getAdjacencies() const{
+inline std::vector<DagNode*> DagNode::getAdjacencies() const{
     return this-> _adjacencies;
 }
 
@@ -102,8 +102,8 @@ inline void DagNode::addChild(DagNode* newNode){
     }
 }
 
-inline void DagNode::addAdjacencies(const size_t &indexOfTriangle){
-    this->_adjacencies.push_back(indexOfTriangle);
+inline void DagNode::addAdjacencies(DagNode* &adjacentNode){
+    this->_adjacencies.push_back(adjacentNode);
 }
 
 /**
