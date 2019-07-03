@@ -29,7 +29,7 @@ class DagNode
         /* --- Methods --- */
         inline bool checkNumberOfChildrens() const;
         inline bool isALeaf() const;
-
+        inline void changeAdjacencies(DagNode* old, DagNode* current);
 
     protected:
 //        Triangle _triangle;
@@ -120,6 +120,14 @@ inline bool DagNode::checkNumberOfChildrens () const{
  */
 inline bool DagNode::isALeaf () const{
     return _childrens.empty();
+}
+
+inline void DagNode::changeAdjacencies(DagNode* old, DagNode* current){
+    for (size_t i = 0; i < getAdjacencies().size(); i++){
+        if (_adjacencies[i] == old){
+            _adjacencies[i] = current;
+        }
+    }
 }
 
 #endif // DAG_H

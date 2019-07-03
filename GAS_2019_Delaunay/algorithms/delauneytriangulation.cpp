@@ -29,23 +29,35 @@ void DelauneyTriangulation::updateAdjacencies(DagNode* father, DagNode* child, D
 void DelauneyTriangulation::updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNode* father_2, DagNode* child, DagNode* brotherNode){
     if (!father_1->getAdjacencies().empty()){
         for (DagNode* node : father_1->getAdjacencies()){
-            if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
-                child->addAdjacencies(node);
-                break;
+            if (node != father_2){
+                if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
+                    child->addAdjacencies(node);
+                    node->changeAdjacencies(father_1,child);
+                }
             }
         }
     }
     if (!father_2->getAdjacencies().empty()){
         for (DagNode* node : father_2->getAdjacencies()){
-            if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
-                child->addAdjacencies(node);
-                break;
+            if (node != father_1){
+                if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
+                    child->addAdjacencies(node);
+                    node->changeAdjacencies(father_2,child);
+                }
             }
         }
     }
     child->addAdjacencies(brotherNode);
 }
 
+void DelauneyTriangulation::updateAdjacenciesOnBrothers(DagNode* adjacent, DagNode* splittedBrother){
+    for (DagNode* children : splittedBrother->getChildrens()){
+        if (_delauneyTriangles[children->getTriangleIndex()].isAdjacent(_delauneyTriangles[adjacent->getTriangleIndex()])){
+            adjacent->changeAdjacencies(splittedBrother,children);
+            break;
+        }
+    }
+}
 
 void DelauneyTriangulation::legalizeEdge(DagNode* node){
     cg3::Point2Dd oppositePoint;
@@ -134,7 +146,11 @@ void DelauneyTriangulation::makeSplits(DagNode* currentNode, const cg3::Point2Dd
     updateAdjacencies(currentNode,currentNode->getFirstChild(),currentNode->getSecondChild(),currentNode->getThirdChild());
     updateAdjacencies(currentNode,currentNode->getSecondChild(),currentNode->getFirstChild(),currentNode->getThirdChild());
     updateAdjacencies(currentNode,currentNode->getThirdChild(),currentNode->getFirstChild(),currentNode->getSecondChild());
-    for (DagNode* adjacentNode : currentNode->getAdjacencies()){
+
+    if (!currentNode->getAdjacencies().empty()){
+        for (DagNode* adjacentNode : currentNode->getAdjacencies()){
+            updateAdjacenciesOnBrothers(adjacentNode,currentNode);
+        }
     }
 }
 
