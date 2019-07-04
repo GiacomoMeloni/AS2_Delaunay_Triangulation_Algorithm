@@ -35,14 +35,14 @@ inline DrawableDelauneyTriangulation::DrawableDelauneyTriangulation() {
     setEdgeColor(*new QColor(0,0,255));
     setPointColor(*new QColor(255,0,0));
     setEdgeWidth(1);
-    setPointSize(5);
+    setPointSize(3);
 }
 
 inline DrawableDelauneyTriangulation::DrawableDelauneyTriangulation(const Triangle &boundingTriangle):DelauneyTriangulation (boundingTriangle) {
     setEdgeColor(*new QColor(0,0,255));
     setPointColor(*new QColor(255,0,0));
     setEdgeWidth(1);
-    setPointSize(5);
+    setPointSize(3);
 }
 
 inline cg3::Pointd DrawableDelauneyTriangulation::sceneCenter() const{

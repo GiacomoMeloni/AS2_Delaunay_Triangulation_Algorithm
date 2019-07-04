@@ -55,7 +55,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
     boundingTriangle(BT_P1,BT_P2,BT_P3),
-    delauneyTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3))
+    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3))
 {
     //UI setup
     ui->setupUi(this);
@@ -68,7 +68,8 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //Add the drawable object to the mainWindow.
     //The mainWindow will take care of rendering the bounding box
     mainWindow.pushObj(&boundingBox, "Bounding box");
-    mainWindow.pushObj(&delauneyTriangulation, "Delauney Triangulation");
+    mainWindow.pushObj(&delaunayTriangulation, "Delaunay Triangulation");
+    mainWindow.pushObj(&boundingTriangle, "Bounding triangle");
 
     //This updates the canvas (call it whenever you change or
     //add some drawable object)
@@ -146,7 +147,7 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     /********************************************************************************************************************/
 
     for (const cg3::Point2Dd &p : inputPoints){
-        delauneyTriangulation.addPointToTriangulation(p);
+        delaunayTriangulation.addPointToTriangulation(p);
     }
 
     /********************************************************************************************************************/
@@ -161,7 +162,7 @@ void DelaunayManager::addPointToDelaunayTriangulation(const cg3::Point2Dd& p) {
     //Here you have to launch the incremental algorithm for the insertion of a new single point into the current triangulation.
     /********************************************************************************************************************/
 
-    delauneyTriangulation.addPointToTriangulation(p);
+    delaunayTriangulation.addPointToTriangulation(p);
 
     /********************************************************************************************************************/
     CG3_SUPPRESS_WARNING(p);
@@ -174,7 +175,7 @@ void DelaunayManager::clearDelaunayTriangulation() {
     //Clear here your Delaunay Triangulation data structure.
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+//    delaunayTriangulation.clearDelaunayTriangulation();
 
     /********************************************************************************************************************/
 }
@@ -271,7 +272,11 @@ void DelaunayManager::checkTriangulation() {
     //assignment operator: "triangles(i,j) = a"; 
     /********************************************************************************************************************/
 
-    /* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+//    points = delaunayTriangulation.getPoints();
+//    size_t i = 0;
+//    for (const Triangle &triangle: delaunayTriangulation.getLeaves()){
+//        triangles(i,0) = triangle.getV1();
+//    }
 
     /********************************************************************************************************************/
 

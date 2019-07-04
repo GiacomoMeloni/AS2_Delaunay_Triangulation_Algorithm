@@ -45,7 +45,7 @@ private:
     /********************************************************************************************************************/
 
     DrawableBoundingTriangle boundingTriangle;
-    DrawableDelauneyTriangulation delauneyTriangulation;
+    DrawableDelauneyTriangulation delaunayTriangulation;
 
     /********************************************************************************************************************/
 

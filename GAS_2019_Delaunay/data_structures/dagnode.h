@@ -14,13 +14,14 @@ class DagNode
         inline DagNode(size_t &idexOftriangle);
 
         /* --- Getter --- */
-//        inline Triangle* getTriangle() const;
         inline size_t getTriangleIndex() const;
         inline std::vector<DagNode*> getChildrens() const;
         inline std::vector<DagNode*> getAdjacencies() const;
         inline DagNode* getFirstChild() const;
         inline DagNode* getSecondChild() const;
         inline DagNode* getThirdChild() const;
+        inline size_t getTheLowerTriangleIndexFromChildrens () const;
+        inline DagNode* getFirstAdjacent() const;
 
         /* --- Setter --- */
         inline void addChild(DagNode* newNode);
@@ -32,7 +33,6 @@ class DagNode
         inline void changeAdjacencies(DagNode* old, DagNode* current);
 
     protected:
-//        Triangle _triangle;
         size_t _triangleIndex;
         std::vector<DagNode*> _childrens;
         std::vector<DagNode*> _adjacencies;
@@ -91,6 +91,10 @@ inline DagNode* DagNode::getThirdChild() const{
     return this->_childrens[2];
 }
 
+inline DagNode* DagNode::getFirstAdjacent() const{
+    return this->_adjacencies[0];
+}
+
 /**
  * @brief Add a child in the list of the node
  * @param newNode - the pointer of the new dag node created
@@ -123,11 +127,24 @@ inline bool DagNode::isALeaf () const{
 }
 
 inline void DagNode::changeAdjacencies(DagNode* old, DagNode* current){
-    for (size_t i = 0; i < getAdjacencies().size(); i++){
+    bool changed = false;
+    for (size_t i = 0; i < getAdjacencies().size() && changed != true; i++){
         if (_adjacencies[i] == old){
             _adjacencies[i] = current;
+            changed = true;
         }
     }
 }
+
+inline size_t DagNode::getTheLowerTriangleIndexFromChildrens() const{
+    size_t mininum = getChildrens()[0]->getTriangleIndex();
+
+    for (size_t i = 1; i<getChildrens().size(); i++)
+    {
+        if (getChildrens()[i]->getTriangleIndex()<mininum)
+            mininum = getChildrens()[i]->getTriangleIndex();
+    }
+    return mininum;
+ }
 
 #endif // DAG_H

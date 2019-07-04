@@ -1,6 +1,7 @@
 #include "delauneytriangulation.h"
 
 cg3::Point2Dd DelauneyTriangulation::getOppositePoint(const Triangle &currentTriangle,const Triangle &adjacentTriangle){
+    cg3::Point2Dd opposite;
     for (cg3::Point2Dd vertexAdjacentTriangle : adjacentTriangle.getVertices()){
         bool found = false;
         for (cg3::Point2Dd vertexCurrentTriangle : currentTriangle.getVertices()){
@@ -8,9 +9,9 @@ cg3::Point2Dd DelauneyTriangulation::getOppositePoint(const Triangle &currentTri
                 found = true;
         }
         if(!found)
-            return vertexAdjacentTriangle;
+            opposite = vertexAdjacentTriangle;
     }
-    return cg3::Point2Dd(0,0);
+    return opposite;
 }
 
 void DelauneyTriangulation::updateAdjacencies(DagNode* father, DagNode* child, DagNode* nodeOfFirstBrother, DagNode* nodeOfSecondBrother){
@@ -33,6 +34,7 @@ void DelauneyTriangulation::updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNo
                 if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
                     child->addAdjacencies(node);
                     node->changeAdjacencies(father_1,child);
+                    break;
                 }
             }
         }
@@ -43,6 +45,7 @@ void DelauneyTriangulation::updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNo
                 if (_delauneyTriangles[node->getTriangleIndex()].isAdjacent(_delauneyTriangles[child->getTriangleIndex()])){
                     child->addAdjacencies(node);
                     node->changeAdjacencies(father_2,child);
+                    break;
                 }
             }
         }
@@ -59,47 +62,51 @@ void DelauneyTriangulation::updateAdjacenciesOnBrothers(DagNode* adjacent, DagNo
     }
 }
 
-void DelauneyTriangulation::legalizeEdge(DagNode* node){
+void DelauneyTriangulation::legalizeEdge(DagNode* node, size_t lowerBrotherIndex){
     cg3::Point2Dd oppositePoint;
 
     for (DagNode* adjacentNode : node->getAdjacencies()){
-        oppositePoint = getOppositePoint(_delauneyTriangles[node->getTriangleIndex()],_delauneyTriangles[adjacentNode->getTriangleIndex()]);
+        if(adjacentNode->getTriangleIndex() < lowerBrotherIndex){
+            oppositePoint = getOppositePoint(_delauneyTriangles[node->getTriangleIndex()],_delauneyTriangles[adjacentNode->getTriangleIndex()]);
 
-        if(cg3::isPointLyingInCircle(
-                    _delauneyTriangles[node->getTriangleIndex()].getV1(),
-                    _delauneyTriangles[node->getTriangleIndex()].getV2(),
-                    _delauneyTriangles[node->getTriangleIndex()].getV3(),
-                    oppositePoint, true)){
-
-            _delauneyTriangles[node->getTriangleIndex()].setIsALeaf(false);
-            _delauneyTriangles[adjacentNode->getTriangleIndex()].setIsALeaf(false);
-
-            Triangle delta1 = Triangle(
-                        _delauneyTriangles[node->getTriangleIndex()].getV1(),
-                        _delauneyTriangles[node->getTriangleIndex()].getV3(),
-                        oppositePoint,true);
-            Triangle delta2 = Triangle(
+            if(cg3::isPointLyingInCircle(
                         _delauneyTriangles[node->getTriangleIndex()].getV1(),
                         _delauneyTriangles[node->getTriangleIndex()].getV2(),
-                        oppositePoint,true);
+                        _delauneyTriangles[node->getTriangleIndex()].getV3(),
+                        oppositePoint, true)){
 
-            this->_delauneyTriangles.push_back(delta1);
-            size_t indexOfFirstChildTriangle = _delauneyTriangles.size()-1;
-            DagNode* firstChild = new DagNode (indexOfFirstChildTriangle);
-            node->addChild(firstChild);
-            adjacentNode->addChild(firstChild);
+                _delauneyTriangles[node->getTriangleIndex()].setIsALeaf(false);
+                _delauneyTriangles[adjacentNode->getTriangleIndex()].setIsALeaf(false);
 
-            this->_delauneyTriangles.push_back(delta2);
-            size_t indexOfSecondChildTriangle = _delauneyTriangles.size()-1;
-            DagNode* secondChild = new DagNode (indexOfSecondChildTriangle);
-            node->addChild(secondChild);
-            adjacentNode->addChild(secondChild);
+                Triangle delta1 = Triangle(
+                            _delauneyTriangles[node->getTriangleIndex()].getV1(),
+                            _delauneyTriangles[node->getTriangleIndex()].getV3(),
+                            oppositePoint,true);
+                Triangle delta2 = Triangle(
+                            _delauneyTriangles[node->getTriangleIndex()].getV1(),
+                            _delauneyTriangles[node->getTriangleIndex()].getV2(),
+                            oppositePoint,true);
 
-            updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getFirstChild(),node->getSecondChild());
-            updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getSecondChild(),node->getFirstChild());
+                this->_delauneyTriangles.push_back(delta1);
+                size_t indexOfFirstChildTriangle = _delauneyTriangles.size()-1;
+                DagNode* firstChild = new DagNode (indexOfFirstChildTriangle);
+                node->addChild(firstChild);
+                adjacentNode->addChild(firstChild);
 
-            legalizeEdge(node->getFirstChild());
-            legalizeEdge(node->getSecondChild());
+                this->_delauneyTriangles.push_back(delta2);
+                size_t indexOfSecondChildTriangle = _delauneyTriangles.size()-1;
+                DagNode* secondChild = new DagNode (indexOfSecondChildTriangle);
+                node->addChild(secondChild);
+                adjacentNode->addChild(secondChild);
+
+                updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getFirstChild(),node->getSecondChild());
+                updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getSecondChild(),node->getFirstChild());
+
+                size_t referenceBrothersIndex = node->getTheLowerTriangleIndexFromChildrens();
+
+                legalizeEdge(node->getFirstChild(),referenceBrothersIndex);
+                legalizeEdge(node->getSecondChild(),referenceBrothersIndex);
+            }
         }
     }
 }
@@ -164,9 +171,11 @@ void DelauneyTriangulation::addPointToTriangulation(const cg3::Point2Dd &newPoin
             _delauneyTriangles[check->getTriangleIndex()].setIsALeaf(false);
             makeSplits(check, newPoint);
 
-            legalizeEdge (check->getFirstChild());
-            legalizeEdge (check->getSecondChild());
-            legalizeEdge (check->getThirdChild());
+            size_t referenceBrothersIndex = check->getTheLowerTriangleIndexFromChildrens();
+
+            legalizeEdge (check->getFirstChild(),referenceBrothersIndex);
+            legalizeEdge (check->getSecondChild(), referenceBrothersIndex);
+            legalizeEdge (check->getThirdChild(), referenceBrothersIndex);
 
             found = true;
         }else{

@@ -17,10 +17,11 @@ class DelauneyTriangulation
         inline const std::vector<Triangle> getTriangles() const;
         inline DagNode* getDAG() const;
         inline const std::vector<cg3::Point2Dd> getPoints() const;
+        inline std::vector<Triangle> getLeaves() const;
+        cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
 
         inline void addPointToList(const cg3::Point2Dd &newPoint);
 
-        cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
         void updateAdjacencies(DagNode* father, DagNode* child, DagNode* nodeOfFirstBrother, DagNode* nodeOfSecondBrother);
         void updateAdjacenciesOnBrothers(DagNode* adjacent, DagNode* splittedBrother);
         void updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNode* father_2, DagNode* child, DagNode* brotherNode);
@@ -28,7 +29,11 @@ class DelauneyTriangulation
         DagNode* getChildContainsPoint(DagNode* &currentNode, const cg3::Point2Dd &point);
         void makeSplits(DagNode* currentNode, const cg3::Point2Dd &newPoint);
         void addPointToTriangulation (const cg3::Point2Dd &newPoint);
-        void legalizeEdge (DagNode* node);
+        void legalizeEdge (DagNode* node, size_t lowerBrotherIndex);
+
+        inline void clearDagNode (DagNode* node);
+        inline void clearDelaunayTriangulation();
+
 
     protected:
         std::vector<Triangle> _delauneyTriangles;
@@ -60,6 +65,16 @@ inline const std::vector<cg3::Point2Dd> DelauneyTriangulation::getPoints() const
     return this->_points;
 }
 
+inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
+    std::vector<Triangle> leaves;
+    for (const Triangle &triangle : getTriangles()){
+        if (triangle.getIsALeaf()){
+            leaves.push_back(triangle);
+        }
+    }
+    return  leaves;
+}
+
 inline void DelauneyTriangulation::addPointToList(const cg3::Point2Dd &newPoint) {
     this->_points.push_back(newPoint);
 }
@@ -76,5 +91,20 @@ inline bool DelauneyTriangulation::isPointInNode(DagNode* &currentNode, const cg
                 this->_delauneyTriangles[currentNode->getTriangleIndex()].getV3(),
                 point,true);
 }
+
+//inline void DelauneyTriangulation::clearDagNode (DagNode* node){
+//    if (!node->getChildrens().empty()){
+//        for (DagNode* child : node->getChildrens()){
+//            clearDagNode(child);
+//        }
+//    }
+//    free(node);
+//}
+
+//inline void DelauneyTriangulation::clearDelaunayTriangulation (){
+//    this->_delauneyTriangles.clear();
+//    this->_points.clear();
+//    clearDagNode(this->_dag);
+//}
 
 #endif // DELAUNEYTRIANGULATION_H

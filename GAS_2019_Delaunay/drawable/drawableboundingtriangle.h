@@ -34,15 +34,15 @@ class DrawableBoundingTriangle : public cg3::DrawableObject, public Triangle {
 inline DrawableBoundingTriangle::DrawableBoundingTriangle() {
     setEdgeColor(*new QColor(0,0,0));
     setPointColor(*new QColor(255,0,0));
-    setEdgeWidth(1);
-    setPointSize(2);
+    setEdgeWidth(4);
+    setPointSize(7);
 }
 
 inline DrawableBoundingTriangle::DrawableBoundingTriangle(const cg3::Point2Dd &v1, const cg3::Point2Dd &v2, const cg3::Point2Dd &v3):Triangle (v1,v2,v3){
     setEdgeColor(*new QColor(0,0,0));
     setPointColor(*new QColor(255,0,0));
-    setEdgeWidth(1);
-    setPointSize(2);
+    setEdgeWidth(4);
+    setPointSize(7);
 }
 
 inline cg3::Pointd DrawableBoundingTriangle::sceneCenter() const{
