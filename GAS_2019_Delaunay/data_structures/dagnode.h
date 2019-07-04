@@ -21,7 +21,6 @@ class DagNode
         inline DagNode* getSecondChild() const;
         inline DagNode* getThirdChild() const;
         inline size_t getTheLowerTriangleIndexFromChildrens () const;
-        inline DagNode* getFirstAdjacent() const;
 
         /* --- Setter --- */
         inline void addChild(DagNode* newNode);
@@ -31,6 +30,8 @@ class DagNode
         inline bool checkNumberOfChildrens() const;
         inline bool isALeaf() const;
         inline void changeAdjacencies(DagNode* old, DagNode* current);
+
+        inline void clearNode();
 
     protected:
         size_t _triangleIndex;
@@ -91,10 +92,6 @@ inline DagNode* DagNode::getThirdChild() const{
     return this->_childrens[2];
 }
 
-inline DagNode* DagNode::getFirstAdjacent() const{
-    return this->_adjacencies[0];
-}
-
 /**
  * @brief Add a child in the list of the node
  * @param newNode - the pointer of the new dag node created
@@ -145,6 +142,17 @@ inline size_t DagNode::getTheLowerTriangleIndexFromChildrens() const{
             mininum = getChildrens()[i]->getTriangleIndex();
     }
     return mininum;
- }
+}
+
+inline void DagNode::clearNode(){
+    for (DagNode* node : getChildrens()){
+        delete node;
+    }
+    this->_childrens.clear();
+    for (DagNode* node : getAdjacencies()){
+        delete node;
+    }
+    this->_adjacencies.clear();
+}
 
 #endif // DAG_H

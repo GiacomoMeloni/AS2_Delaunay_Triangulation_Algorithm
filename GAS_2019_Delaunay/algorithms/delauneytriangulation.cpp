@@ -102,6 +102,9 @@ void DelauneyTriangulation::legalizeEdge(DagNode* node, size_t lowerBrotherIndex
                 updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getFirstChild(),node->getSecondChild());
                 updateAdjacenciesOnEdgeFlip(node, adjacentNode,node->getSecondChild(),node->getFirstChild());
 
+                this->_allNodeCollection.push_back(node->getFirstChild());
+                this->_allNodeCollection.push_back(node->getSecondChild());
+
                 size_t referenceBrothersIndex = node->getTheLowerTriangleIndexFromChildrens();
 
                 legalizeEdge(node->getFirstChild(),referenceBrothersIndex);
@@ -154,6 +157,10 @@ void DelauneyTriangulation::makeSplits(DagNode* currentNode, const cg3::Point2Dd
     updateAdjacencies(currentNode,currentNode->getSecondChild(),currentNode->getFirstChild(),currentNode->getThirdChild());
     updateAdjacencies(currentNode,currentNode->getThirdChild(),currentNode->getFirstChild(),currentNode->getSecondChild());
 
+    this->_allNodeCollection.push_back(currentNode->getFirstChild());
+    this->_allNodeCollection.push_back(currentNode->getSecondChild());
+    this->_allNodeCollection.push_back(currentNode->getThirdChild());
+
     if (!currentNode->getAdjacencies().empty()){
         for (DagNode* adjacentNode : currentNode->getAdjacencies()){
             updateAdjacenciesOnBrothers(adjacentNode,currentNode);
@@ -164,18 +171,22 @@ void DelauneyTriangulation::makeSplits(DagNode* currentNode, const cg3::Point2Dd
 void DelauneyTriangulation::addPointToTriangulation(const cg3::Point2Dd &newPoint){
     bool found= false;
     DagNode* check = getDAG();
-    addPointToList(newPoint);
 
     while (found == false){
-        if (check->isALeaf() /*&& check->isPointInTriangle(newPoint)*/){
+        if (check->isALeaf()){
             _delauneyTriangles[check->getTriangleIndex()].setIsALeaf(false);
             makeSplits(check, newPoint);
 
             size_t referenceBrothersIndex = check->getTheLowerTriangleIndexFromChildrens();
 
-            legalizeEdge (check->getFirstChild(),referenceBrothersIndex);
-            legalizeEdge (check->getSecondChild(), referenceBrothersIndex);
-            legalizeEdge (check->getThirdChild(), referenceBrothersIndex);
+            if (check->getFirstChild()->getAdjacencies().size()>2)
+                legalizeEdge (check->getFirstChild(),referenceBrothersIndex);
+
+            if (check->getSecondChild()->getAdjacencies().size()>2)
+                legalizeEdge (check->getSecondChild(), referenceBrothersIndex);
+
+            if (check->getThirdChild()->getAdjacencies().size()>2)
+                legalizeEdge (check->getThirdChild(), referenceBrothersIndex);
 
             found = true;
         }else{

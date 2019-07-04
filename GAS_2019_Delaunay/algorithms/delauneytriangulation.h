@@ -16,11 +16,10 @@ class DelauneyTriangulation
 
         inline const std::vector<Triangle> getTriangles() const;
         inline DagNode* getDAG() const;
-        inline const std::vector<cg3::Point2Dd> getPoints() const;
         inline std::vector<Triangle> getLeaves() const;
         cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
 
-        inline void addPointToList(const cg3::Point2Dd &newPoint);
+        inline void addTriangleToTriangulation (const Triangle &newTriangle);
 
         void updateAdjacencies(DagNode* father, DagNode* child, DagNode* nodeOfFirstBrother, DagNode* nodeOfSecondBrother);
         void updateAdjacenciesOnBrothers(DagNode* adjacent, DagNode* splittedBrother);
@@ -31,14 +30,14 @@ class DelauneyTriangulation
         void addPointToTriangulation (const cg3::Point2Dd &newPoint);
         void legalizeEdge (DagNode* node, size_t lowerBrotherIndex);
 
-        inline void clearDagNode (DagNode* node);
+        inline void collectNodes (DagNode* node, std::vector<DagNode*> &allDagNodes);
         inline void clearDelaunayTriangulation();
 
 
     protected:
         std::vector<Triangle> _delauneyTriangles;
         DagNode* _dag;
-        std::vector<cg3::Point2Dd> _points;
+        std::vector<DagNode*> _allNodeCollection;
 };
 
 inline DelauneyTriangulation::DelauneyTriangulation(){
@@ -49,8 +48,7 @@ inline DelauneyTriangulation::DelauneyTriangulation(const Triangle &boundingTria
     this->_delauneyTriangles.push_back(boundingTriangle);
     size_t indexOfTriangle = _delauneyTriangles.size()-1;
     this->_dag = new DagNode(indexOfTriangle);
-    this->_delauneyTriangles[0].setIsALeaf(true);
-    this->_points = {};
+    this->_allNodeCollection={};
 }
 
 inline const std::vector<Triangle> DelauneyTriangulation::getTriangles() const{
@@ -59,10 +57,6 @@ inline const std::vector<Triangle> DelauneyTriangulation::getTriangles() const{
 
 inline DagNode* DelauneyTriangulation::getDAG() const{
     return this->_dag;
-}
-
-inline const std::vector<cg3::Point2Dd> DelauneyTriangulation::getPoints() const{
-    return this->_points;
 }
 
 inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
@@ -75,8 +69,11 @@ inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
     return  leaves;
 }
 
-inline void DelauneyTriangulation::addPointToList(const cg3::Point2Dd &newPoint) {
-    this->_points.push_back(newPoint);
+inline void DelauneyTriangulation::addTriangleToTriangulation (const Triangle &newTriangle){
+    this->_delauneyTriangles.push_back(newTriangle);
+    size_t indexOfTriangle = _delauneyTriangles.size()-1;
+    this->_dag = new DagNode(indexOfTriangle);
+    this->_allNodeCollection={};
 }
 
 /**
@@ -92,19 +89,25 @@ inline bool DelauneyTriangulation::isPointInNode(DagNode* &currentNode, const cg
                 point,true);
 }
 
-//inline void DelauneyTriangulation::clearDagNode (DagNode* node){
+//inline void DelauneyTriangulation::collectNodes (DagNode* node, std::vector<DagNode*> &allDagNodes){
+
 //    if (!node->getChildrens().empty()){
 //        for (DagNode* child : node->getChildrens()){
-//            clearDagNode(child);
+//            collectNodes(child, allDagNodes);
 //        }
 //    }
-//    free(node);
+//    allDagNodes.push_back(node);
 //}
 
-//inline void DelauneyTriangulation::clearDelaunayTriangulation (){
-//    this->_delauneyTriangles.clear();
-//    this->_points.clear();
-//    clearDagNode(this->_dag);
-//}
+inline void DelauneyTriangulation::clearDelaunayTriangulation (){
+    std::vector<DagNode*> allDagNodes;
+    this->_delauneyTriangles.clear();
+//    collectNodes(_dag, allDagNodes);
+
+    for (DagNode* node : _allNodeCollection){
+        delete node;
+    }
+    this->_allNodeCollection.clear();
+}
 
 #endif // DELAUNEYTRIANGULATION_H

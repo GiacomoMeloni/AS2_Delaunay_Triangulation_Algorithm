@@ -55,7 +55,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
     boundingTriangle(BT_P1,BT_P2,BT_P3),
-    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3))
+    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3,true))
 {
     //UI setup
     ui->setupUi(this);
@@ -145,6 +145,7 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     //Here you should call an algorithm (obviously defined in ANOTHER FILE!) which
     //fills your output Triangulation data structure.
     /********************************************************************************************************************/
+    std::random_shuffle ( points.begin(), points.end() );
 
     for (const cg3::Point2Dd &p : inputPoints){
         delaunayTriangulation.addPointToTriangulation(p);
@@ -175,7 +176,8 @@ void DelaunayManager::clearDelaunayTriangulation() {
     //Clear here your Delaunay Triangulation data structure.
     /********************************************************************************************************************/
 
-//    delaunayTriangulation.clearDelaunayTriangulation();
+    delaunayTriangulation.clearDelaunayTriangulation();
+    delaunayTriangulation.addTriangleToTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3,true));
 
     /********************************************************************************************************************/
 }
@@ -272,11 +274,22 @@ void DelaunayManager::checkTriangulation() {
     //assignment operator: "triangles(i,j) = a"; 
     /********************************************************************************************************************/
 
-//    points = delaunayTriangulation.getPoints();
-//    size_t i = 0;
-//    for (const Triangle &triangle: delaunayTriangulation.getLeaves()){
-//        triangles(i,0) = triangle.getV1();
-//    }
+    triangles.resize(delaunayTriangulation.getLeaves().size(), 3);
+    unsigned int i = 0;
+    unsigned int pointPosition = 0;
+
+    for (const Triangle &triangle: delaunayTriangulation.getLeaves()){
+
+        points.push_back(triangle.getV1());
+        triangles(i,0) = pointPosition;
+        pointPosition++;
+        points.push_back(triangle.getV2());
+        triangles(i,1) = pointPosition;
+        pointPosition++;
+        points.push_back(triangle.getV3());
+        triangles(i,2) = pointPosition;
+        pointPosition++;
+    }
 
     /********************************************************************************************************************/
 
