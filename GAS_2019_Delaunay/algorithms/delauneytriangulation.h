@@ -7,8 +7,12 @@
 #include <cg3/geometry/2d/utils2d.h>
 #include <Eigen/Dense>
 
-
-
+/**
+ * @brief Class that manage the Delaunay Triangulation. The aim of this class is to build and fill all the data structures that rappresenting the triangulation.
+ * This class contains a vector of triangles that collect all that triangles made by splits;
+ * a dag node pointer used to build the DAG structure starting from the root (the bounding triangle);
+ * a vector of dagNode pointer that collect all the created pointer of the DAG (this is made to manage the cancellation of the dag and the construction of the voronoi diagram)
+ */
 class DelauneyTriangulation
 {
     public:
@@ -45,10 +49,18 @@ class DelauneyTriangulation
         std::vector<DagNode*> _allNodeCollection;
 };
 
+/**
+ * @brief Default constructor.
+ **/
 inline DelauneyTriangulation::DelauneyTriangulation(){
 
 }
 
+/**
+ * @brief Constructor using the bounding triangle's reference.
+ * Once the triangle is pushed inside the triangles vector, its index is used to instantiate the dag root
+ * @param boundingTriangle the reference of the bounding triangle.
+ */
 inline DelauneyTriangulation::DelauneyTriangulation(const Triangle &boundingTriangle){
     this->_delauneyTriangles.push_back(boundingTriangle);
     size_t indexOfTriangle = _delauneyTriangles.size()-1;
@@ -56,18 +68,33 @@ inline DelauneyTriangulation::DelauneyTriangulation(const Triangle &boundingTria
     this->_allNodeCollection={};
 }
 
+/**
+ * @brief Deconstructor. It calls the function clearDelaunayTriangulation in order to manage the cancellation of the data structures.
+ **/
 inline DelauneyTriangulation::~DelauneyTriangulation(){
     clearDelaunayTriangulation();
 }
 
+/**
+ * @brief getTrianles get the reference to the vector of triangles
+ * @return the reference of the vector of triangles
+ */
 inline const std::vector<Triangle>& DelauneyTriangulation::getTriangles() const{
     return this->_delauneyTriangles;
 }
 
+/**
+ * @brief getDAG get the pointer to the dag root
+ * @return the pointer to the dag root
+ */
 inline DagNode* DelauneyTriangulation::getDAG() const{
     return this->_dag;
 }
 
+/**
+ * @brief getLeaves get the vector of triangles leaves.
+ * @return a vector of triangles
+ */
 inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
     std::vector<Triangle> leaves;
     for (const Triangle &triangle : _delauneyTriangles){
@@ -78,10 +105,18 @@ inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
     return leaves;
 }
 
+/**
+ * @brief getAllDagNodes get a reference to the vector of DAG nodes.
+ * @return a reference to the vector of DAG nodes.
+ */
 inline std::vector<DagNode*>& DelauneyTriangulation::getAllDagNodes(){
     return this->_allNodeCollection;
 }
 
+/**
+ * @brief addTriangleToTriangulation add a triangle inside the vector of triangles. Once added the other internal structures are setted.
+ * @param the reference of the new Triangle to add.
+ */
 inline void DelauneyTriangulation::addTriangleToTriangulation (const Triangle &newTriangle){
     this->_delauneyTriangles.push_back(newTriangle);
     size_t indexOfTriangle = _delauneyTriangles.size()-1;
@@ -90,7 +125,7 @@ inline void DelauneyTriangulation::addTriangleToTriangulation (const Triangle &n
 }
 
 /**
- * @brief Check if a point is lying in the triangle inside the current dag node
+ * @brief isPointInNode check if a point is lying in the triangle inside the current dag node
  * @param point - the reference of the newPoint to check
  * @return true if the point lies in the node's triangle, false otherwise
  */
@@ -102,6 +137,9 @@ inline bool DelauneyTriangulation::isPointInNode(DagNode* &currentNode, const cg
                 point,true);
 }
 
+/**
+ * @brief clearDelaunayTriangulation clear all the data structures of the triangulation.
+ */
 inline void DelauneyTriangulation::clearDelaunayTriangulation (){
     std::vector<DagNode*> allDagNodes;
     this->_delauneyTriangles.clear();

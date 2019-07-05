@@ -2,7 +2,7 @@
 
 /**
  * @brief draw points and edges, taking in consideration all the dag nodes that are leaves.
- * taking into account all nodes adjacent to the current node. The circumcentres of the triangles are calculated.
+ * Taking into account all nodes adjacent to the current node. The circumcentres of the triangles are calculated.
  * Using these data points and edges are drawn.
  */
 void DrawableVoronoiDiagram::draw() const
