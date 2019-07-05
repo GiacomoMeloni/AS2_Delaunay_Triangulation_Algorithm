@@ -55,7 +55,8 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
     boundingTriangle(BT_P1,BT_P2,BT_P3),
-    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3,true))
+    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3,true)),
+    voronoiDiagram()
 {
     //UI setup
     ui->setupUi(this);
@@ -68,6 +69,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     //Add the drawable object to the mainWindow.
     //The mainWindow will take care of rendering the bounding box
     mainWindow.pushObj(&boundingBox, "Bounding box");
+
     mainWindow.pushObj(&delaunayTriangulation, "Delaunay Triangulation");
     mainWindow.pushObj(&boundingTriangle, "Bounding triangle");
 
@@ -126,6 +128,11 @@ DelaunayManager::~DelaunayManager() {
     //Delete the bounding box drawable object
     mainWindow.deleteObj(&boundingBox);
     mainWindow.deleteObj(&boundingTriangle);
+
+    if(mainWindow.contains(&voronoiDiagram))
+    {
+        mainWindow.deleteObj(&voronoiDiagram);
+    }
 
     delete ui; //Delete interface
 }
@@ -273,22 +280,20 @@ void DelaunayManager::checkTriangulation() {
 	//by calling "triangles.resize(n, 3)", and then fill the matrix using the
     //assignment operator: "triangles(i,j) = a"; 
     /********************************************************************************************************************/
-
-    triangles.resize(delaunayTriangulation.getLeaves().size(), 3);
-    unsigned int i = 0;
+    std::vector<Triangle> leaves = delaunayTriangulation.getLeaves();
+    triangles.resize(leaves.size(), 3);
     unsigned int pointPosition = 0;
 
-    for (const Triangle &triangle: delaunayTriangulation.getLeaves()){
-
-        points.push_back(triangle.getV1());
-        triangles(i,0) = pointPosition;
-        pointPosition++;
-        points.push_back(triangle.getV2());
-        triangles(i,1) = pointPosition;
-        pointPosition++;
-        points.push_back(triangle.getV3());
-        triangles(i,2) = pointPosition;
-        pointPosition++;
+    for (size_t i = 0; i<leaves.size(); i++){
+            points.push_back(leaves[i].getV1());
+            triangles(i,0) = pointPosition;
+            pointPosition++;
+            points.push_back(leaves[i].getV2());
+            triangles(i,1) = pointPosition;
+            pointPosition++;
+            points.push_back(leaves[i].getV3());
+            triangles(i,2) = pointPosition;
+            pointPosition++;
     }
 
     /********************************************************************************************************************/
@@ -318,8 +323,26 @@ void DelaunayManager::checkTriangulation() {
 //They are needed if you want to implement voronoi
 /********************************************************************************************************************/
 
-/* WRITE YOUR CODE HERE! Read carefully the above comments! This line can be deleted */
+void DelaunayManager::on_voronoiDiagramPushButton_clicked()
+{
+    voronoiDiagram.setTriangles(&delaunayTriangulation.getTriangles());
+    voronoiDiagram.setAllDagNodes(&delaunayTriangulation.getAllDagNodes());
 
+    if(!mainWindow.contains(&voronoiDiagram))
+    {
+        mainWindow.pushObj(&voronoiDiagram, "Voronoi Diagram");
+    }
+    fitScene();
+}
+
+void DelaunayManager::on_clearVoronoiDiagramPushButton_clicked()
+{
+    if(mainWindow.contains(&voronoiDiagram))
+    {
+        mainWindow.deleteObj(&voronoiDiagram);
+    }
+    fitScene();
+}
 /********************************************************************************************************************/
 
 
@@ -328,6 +351,7 @@ void DelaunayManager::checkTriangulation() {
 //----------------------------------------------------------------------------------------------
 //              Most likely, you will NOT need to write/edit code in the area below.
 //----------------------------------------------------------------------------------------------
+
 
 
 /* ----- Private utility methods ----- */
@@ -416,8 +440,6 @@ void DelaunayManager::on_clearPointsPushButton_clicked() { //Do not write code h
     //Clear timer data
     ui->timeLabel->setText("");
 }
-
-
 
 
 /**

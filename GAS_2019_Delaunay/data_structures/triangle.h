@@ -24,6 +24,7 @@ class Triangle
         inline const std::vector<cg3::Point2Dd> getVertices() const;
         inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> getEdges() const;
         inline bool getIsALeaf() const;
+        cg3::Point2Dd getCircleCenter() const;
 
         /* --- Setters --- */
         inline void setV1(const cg3::Point2Dd &v);
@@ -186,7 +187,8 @@ inline void Triangle::setIsALeaf(bool status){
 }
 
 inline cg3::Point2Dd Triangle::getCenter() const{
-    double centX, centY;
+    double centX = 0.0;
+    double centY = 0.0;
     for (cg3::Point2Dd p : getVertices()){
         centX += p.x();
         centY += p.y();

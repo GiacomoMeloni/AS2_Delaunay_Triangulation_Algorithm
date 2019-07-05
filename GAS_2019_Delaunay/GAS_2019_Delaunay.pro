@@ -49,7 +49,8 @@ SOURCES += \
     algorithms/delauneytriangulation.cpp \
     data_structures/dagnode.cpp \
     drawable/drawableboundingtriangle.cpp \
-    drawable/drawabledelauneytriangulation.cpp
+    drawable/drawabledelauneytriangulation.cpp \
+    drawable/drawablevoronoidiagram.cpp
 
 HEADERS += \
     managers/delaunaymanager.h \
@@ -59,7 +60,8 @@ HEADERS += \
     data_structures/dagnode.h \
     drawable/drawableboundingtriangle.h \
     data_structures/triangle.h \
-    drawable/drawabledelauneytriangulation.h
+    drawable/drawabledelauneytriangulation.h \
+    drawable/drawablevoronoidiagram.h
 
 FORMS += \
     managers/delaunaymanager.ui

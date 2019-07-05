@@ -9,6 +9,8 @@
 
 #include "../drawable/drawableboundingtriangle.h"
 #include "../drawable/drawabledelauneytriangulation.h"
+#include "../drawable/drawablevoronoidiagram.h"
+
 
 
 namespace Ui {
@@ -40,12 +42,12 @@ private:
     //Vector of points (the input of the algorithm)
     std::vector<cg3::Point2Dd> points;
 
-
     //Declare your private attributes here
     /********************************************************************************************************************/
 
     DrawableBoundingTriangle boundingTriangle;
     DrawableDelauneyTriangulation delaunayTriangulation;
+    DrawableVoronoiDiagram voronoiDiagram;
 
     /********************************************************************************************************************/
 
@@ -114,6 +116,9 @@ private slots:
     void on_checkTriangulationPushButton_clicked();
 
     void on_showBoundingTriangleCheckBox_stateChanged(int arg1);
+
+    void on_voronoiDiagramPushButton_clicked();
+    void on_clearVoronoiDiagramPushButton_clicked();
 };
 
 #endif // DELAUNAYMANAGER_H

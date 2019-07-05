@@ -5,6 +5,7 @@
 #include "../data_structures/dagnode.h"
 #include <cg3/geometry/2d/point2d.h>
 #include <cg3/geometry/2d/utils2d.h>
+#include <Eigen/Dense>
 
 
 
@@ -13,11 +14,13 @@ class DelauneyTriangulation
     public:
         inline DelauneyTriangulation();
         inline DelauneyTriangulation(const Triangle &boundingTriangle);
+        inline ~DelauneyTriangulation();
 
-        inline const std::vector<Triangle> getTriangles() const;
+        inline const std::vector<Triangle>& getTriangles() const;
         inline DagNode* getDAG() const;
         inline std::vector<Triangle> getLeaves() const;
         cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
+        inline std::vector<DagNode*>& getAllDagNodes();
 
         inline void addTriangleToTriangulation (const Triangle &newTriangle);
 
@@ -51,7 +54,11 @@ inline DelauneyTriangulation::DelauneyTriangulation(const Triangle &boundingTria
     this->_allNodeCollection={};
 }
 
-inline const std::vector<Triangle> DelauneyTriangulation::getTriangles() const{
+inline DelauneyTriangulation::~DelauneyTriangulation(){
+    clearDelaunayTriangulation();
+}
+
+inline const std::vector<Triangle>& DelauneyTriangulation::getTriangles() const{
     return this->_delauneyTriangles;
 }
 
@@ -61,12 +68,16 @@ inline DagNode* DelauneyTriangulation::getDAG() const{
 
 inline std::vector<Triangle> DelauneyTriangulation::getLeaves() const{
     std::vector<Triangle> leaves;
-    for (const Triangle &triangle : getTriangles()){
+    for (const Triangle &triangle : _delauneyTriangles){
         if (triangle.getIsALeaf()){
             leaves.push_back(triangle);
         }
     }
-    return  leaves;
+    return leaves;
+}
+
+inline std::vector<DagNode*>& DelauneyTriangulation::getAllDagNodes(){
+    return this->_allNodeCollection;
 }
 
 inline void DelauneyTriangulation::addTriangleToTriangulation (const Triangle &newTriangle){
@@ -89,20 +100,9 @@ inline bool DelauneyTriangulation::isPointInNode(DagNode* &currentNode, const cg
                 point,true);
 }
 
-//inline void DelauneyTriangulation::collectNodes (DagNode* node, std::vector<DagNode*> &allDagNodes){
-
-//    if (!node->getChildrens().empty()){
-//        for (DagNode* child : node->getChildrens()){
-//            collectNodes(child, allDagNodes);
-//        }
-//    }
-//    allDagNodes.push_back(node);
-//}
-
 inline void DelauneyTriangulation::clearDelaunayTriangulation (){
     std::vector<DagNode*> allDagNodes;
     this->_delauneyTriangles.clear();
-//    collectNodes(_dag, allDagNodes);
 
     for (DagNode* node : _allNodeCollection){
         delete node;
