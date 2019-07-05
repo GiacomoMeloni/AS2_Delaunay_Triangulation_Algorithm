@@ -6,6 +6,11 @@
 #include "cg3/viewer/renderable_objects/2d/renderable_objects2d.h"
 #include "../algorithms/delauneytriangulation.h"
 
+/**
+ * @brief Class representing the drawable voronoi diagram. This class inherit to cg3::DrawableObject.
+ * It permit to draw the voronoi diagram using the dag nodes and the triangles collections of the delaunay triangulation.
+ * This class contains the features of the geometric objects that will be draw.
+ */
 class DrawableVoronoiDiagram : public cg3::DrawableObject {
     public:
         inline DrawableVoronoiDiagram();
@@ -36,6 +41,9 @@ class DrawableVoronoiDiagram : public cg3::DrawableObject {
         cg3::Color edgeColor;
 };
 
+/**
+ * @brief Default constructor.
+ */
 inline DrawableVoronoiDiagram::DrawableVoronoiDiagram() {
     this->_allDagNodes = nullptr;
     this->_triangles = nullptr;
@@ -46,6 +54,12 @@ inline DrawableVoronoiDiagram::DrawableVoronoiDiagram() {
     setPointSize(3);
 }
 
+/**
+ * @brief Constructor using the pointer to the list of the DAG nodes and the pointer to the list of triangles to set the internal attributes.
+ * The other geometric attributes inside the drawable class are set statically by calling the relative methods.
+ * @param allNodes pointer to the list of DAG nodes
+ * @param triangles pointer to the list of triangles
+ */
 inline DrawableVoronoiDiagram::DrawableVoronoiDiagram(std::vector<DagNode*> *allNodes,std::vector<Triangle> *triangles){
     this->_allDagNodes = allNodes;
     this->_triangles = triangles;
@@ -55,34 +69,66 @@ inline DrawableVoronoiDiagram::DrawableVoronoiDiagram(std::vector<DagNode*> *all
     setPointSize(3);
 }
 
+/**
+ * @brief sceneCenter
+ * @return
+ */
 inline cg3::Pointd DrawableVoronoiDiagram::sceneCenter() const{
     return *new cg3::Pointd (0, 0, 0);
 }
 
+/**
+ * @brief sceneRadius
+ * @return
+ */
 inline double DrawableVoronoiDiagram::sceneRadius() const{
     return 1e+6;
 }
 
+/**
+ * @brief setEdgeColor
+ * @param c edge color
+ */
 inline void DrawableVoronoiDiagram::setEdgeColor(const QColor &c){
     this->edgeColor = c;
 }
 
+/**
+ * @brief setPointColor
+ * @param c point color
+ */
 inline void DrawableVoronoiDiagram::setPointColor(const QColor &c){
     this->pointColor = c;
 }
 
+/**
+ * @brief setEdgeWidth
+ * @param w edge width
+ */
 inline void DrawableVoronoiDiagram::setEdgeWidth(const int &w){
     this->edgeWidth = w;
 }
 
+/**
+ * @brief setPointSize
+ * @param s point size
+ */
 inline void DrawableVoronoiDiagram::setPointSize(const int &s){
     this->pointSize = s;
 }
 
+/**
+ * @brief setAllDagNodes set the internal attribute with a pointer to the list of nodes.
+ * @param allNodes a pointer to a DagNode pointers vector
+ */
 inline void DrawableVoronoiDiagram::setAllDagNodes(std::vector<DagNode*> *allNodes){
     this->_allDagNodes = allNodes;
 }
 
+/**
+ * @brief setAllDagNodes set the internal attribute with a pointer to the list of triangles.
+ * @param triangles a pointer to a triangles vector
+ */
 inline void DrawableVoronoiDiagram::setTriangles(const std::vector<Triangle> *triangles){
     this->_triangles = triangles;
 }

@@ -5,6 +5,13 @@
 #include "triangle.h"
 #include <cg3/geometry/2d/utils2d.h>
 
+/**
+ * @brief Class representing a DAG node.
+ * A DAG node contain the index of the triangle in the array of the relative delauney triangulation class;
+ * a list of DagNode pointers to childrens;
+ * a list of DagNode pointers to the adjacent triangles that is updated every time
+ * something happens to the triangulation.
+ */
 class DagNode
 {
     public:
@@ -63,7 +70,7 @@ inline const size_t& DagNode::getTriangleIndex() const{
 }
 
 /**
- * @brief Get the list of node's childrens
+ * @brief Get the list of current node's childrens
  * @return childrens - the list of pointers from the current dag's node
  */
 inline const std::vector<DagNode*>& DagNode::getChildrens() const{
@@ -71,8 +78,8 @@ inline const std::vector<DagNode*>& DagNode::getChildrens() const{
 }
 
 /**
- * @brief Get the list of triangle's indeces ajacent to the triangle pointed by the current node
- * @return _ajacencies - the list of triangle's indeces adjacet with the current node's triangle
+ * @brief Get the list of pointers to adjacents nodes to the triangle pointed by the current node
+ * @return _ajacencies - the list of adjacent nodes to the current node's triangle
  */
 inline std::vector<DagNode*>& DagNode::getAdjacencies() {
     return this-> _adjacencies;
