@@ -12,6 +12,7 @@
 
 #include <cg3/data_structures/arrays/arrays.h>
 #include <cg3/utilities/timer.h>
+#include <Eigen/Dense>
 
 
 //Limits for the bounding box

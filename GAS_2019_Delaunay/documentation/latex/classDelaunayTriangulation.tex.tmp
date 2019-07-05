@@ -1,0 +1,332 @@
+\hypertarget{classDelaunayTriangulation}{}\section{Delaunay\+Triangulation Class Reference}
+\label{classDelaunayTriangulation}\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+
+
+Class that manage the Delaunay Triangulation. The aim of this class is to build and fill all the data structures that rappresenting the triangulation. This class contains a vector of triangles that collect all that triangles made by splits; a dag node pointer used to build the D\+AG structure starting from the root (the bounding triangle); a vector of dag\+Node pointer that collect all the created pointer of the D\+AG (this is made to manage the cancellation of the dag and the construction of the voronoi diagram)  
+
+
+
+
+{\ttfamily \#include $<$delaunaytriangulation.\+h$>$}
+
+
+
+Collaboration diagram for Delaunay\+Triangulation\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_aa27c8ab9d568f35b3b47c0456bb45591}\label{classDelaunayTriangulation_aa27c8ab9d568f35b3b47c0456bb45591}} 
+\hyperlink{classDelaunayTriangulation_aa27c8ab9d568f35b3b47c0456bb45591}{Delaunay\+Triangulation} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classDelaunayTriangulation_a7899c4090d9c578b0b92df9a9ae4ecaf}{Delaunay\+Triangulation} (const \hyperlink{classTriangle}{Triangle} \&bounding\+Triangle)
+\begin{DoxyCompactList}\small\item\em Constructor using the bounding triangle\textquotesingle{}s reference. Once the triangle is pushed inside the triangles vector, its index is used to instantiate the dag root. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_a1e046be9eede34621f3d120deb8463ac}\label{classDelaunayTriangulation_a1e046be9eede34621f3d120deb8463ac}} 
+\hyperlink{classDelaunayTriangulation_a1e046be9eede34621f3d120deb8463ac}{$\sim$\+Delaunay\+Triangulation} ()
+\begin{DoxyCompactList}\small\item\em Deconstructor. It calls the function clear\+Delaunay\+Triangulation in order to manage the cancellation of the data structures. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \hyperlink{classTriangle}{Triangle} $>$ \& \hyperlink{classDelaunayTriangulation_a52b0689002927ddaecf48dab2b485037}{get\+Triangles} () const
+\begin{DoxyCompactList}\small\item\em get\+Trianles get the reference to the vector of triangles \end{DoxyCompactList}\item 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ \hyperlink{classDelaunayTriangulation_ae3063d43c2871b7d2e610c16d8d30d84}{get\+D\+AG} () const
+\begin{DoxyCompactList}\small\item\em get\+D\+AG get the pointer to the dag root \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classTriangle}{Triangle} $>$ \hyperlink{classDelaunayTriangulation_ae5f5d0fe187dd2709b3673af78ec738c}{get\+Leaves} () const
+\begin{DoxyCompactList}\small\item\em get\+Leaves get the vector of triangles leaves. \end{DoxyCompactList}\item 
+cg3\+::\+Point2\+Dd \hyperlink{classDelaunayTriangulation_a1c7cb250302b491e765c9de4b5c0f0d5}{get\+Opposite\+Point} (const \hyperlink{classTriangle}{Triangle} \&current\+Triangle, const \hyperlink{classTriangle}{Triangle} \&adjacent\+Triangle)
+\begin{DoxyCompactList}\small\item\em get\+Opposite\+Point get the point opposite the triangle under consideration. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& \hyperlink{classDelaunayTriangulation_a299f5ae7d5bbce0902ff8e05453ada94}{get\+All\+Dag\+Nodes} ()
+\begin{DoxyCompactList}\small\item\em get\+All\+Dag\+Nodes get a reference to the vector of D\+AG nodes. \end{DoxyCompactList}\item 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ \hyperlink{classDelaunayTriangulation_a51d03a00c3df3a39981740142fb6d160}{get\+Child\+Contains\+Point} (\hyperlink{classDagNode}{Dag\+Node} $\ast$\&current\+Node, const cg3\+::\+Point2\+Dd \&point)
+\begin{DoxyCompactList}\small\item\em get\+Child\+Contains\+Point, given the current node and the new point to be inserted in the triangulation, return the children that cointains the point. scrolling through the list of children, it is checked which contains the node and is then returned. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_ac89a4e0a261185c9ed1c716d007c97c2}{add\+Triangle\+To\+Triangulation} (const \hyperlink{classTriangle}{Triangle} \&new\+Triangle)
+\begin{DoxyCompactList}\small\item\em add\+Triangle\+To\+Triangulation add a triangle inside the vector of triangles. Once added the other internal structures are setted. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_a34b3d30daa7889e830aae836cb5cc243}{update\+Adjacencies} (\hyperlink{classDagNode}{Dag\+Node} $\ast$father, \hyperlink{classDagNode}{Dag\+Node} $\ast$child, \hyperlink{classDagNode}{Dag\+Node} $\ast$node\+Of\+First\+Brother, \hyperlink{classDagNode}{Dag\+Node} $\ast$node\+Of\+Second\+Brother)
+\begin{DoxyCompactList}\small\item\em update\+Adjacencies is used in the incremental step, in make\+Splits, to update the adjacencies of the triangles generated by the insertion of the new point. Given the pointer to the father, all its adjacencies are taken. Once an adjacency is found, the update process is stopped. At the end the brothers of the created node are inserted between the adjacencies. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_a60424bc156930d5b9700f8288fb3cc96}{update\+Adjacencies\+On\+Brothers} (\hyperlink{classDagNode}{Dag\+Node} $\ast$adjacent, \hyperlink{classDagNode}{Dag\+Node} $\ast$splitted\+Brother)
+\begin{DoxyCompactList}\small\item\em update\+Adjacencies\+On\+Brothers is used in the incremental step, in the make\+Splits function, to update the adjacencies of the triangles that were adiacent to the split node. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_a49d4c863ce9fa1d105e2b5d2dcec7d3c}{update\+Adjacencies\+On\+Edge\+Flip} (\hyperlink{classDagNode}{Dag\+Node} $\ast$father\+\_\+1, \hyperlink{classDagNode}{Dag\+Node} $\ast$father\+\_\+2, \hyperlink{classDagNode}{Dag\+Node} $\ast$child, \hyperlink{classDagNode}{Dag\+Node} $\ast$brother\+Node)
+\begin{DoxyCompactList}\small\item\em update\+Adjacencies\+On\+Edge\+Flip is used in legalize\+Edge to update the adjacencies of the triangles generated due to the edge flip. Considering that the triangles generated in the edge flip, share two different fathers, they can inherit the adjacencies from one of them. Naturally also the adjacencies of the triangles adjacent to the father are updated with the new nodes created. \end{DoxyCompactList}\item 
+bool \hyperlink{classDelaunayTriangulation_aba49c3a9a71f8c8a789c025b8b1aafe6}{is\+Point\+In\+Node} (\hyperlink{classDagNode}{Dag\+Node} $\ast$\&current\+Node, const cg3\+::\+Point2\+Dd \&point) const
+\begin{DoxyCompactList}\small\item\em is\+Point\+In\+Node check if a point is lying in the triangle inside the current dag node \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_ae8371bf6493a9866b29a8fe896fb345c}{make\+Splits} (\hyperlink{classDagNode}{Dag\+Node} $\ast$current\+Node, const cg3\+::\+Point2\+Dd \&new\+Point)
+\begin{DoxyCompactList}\small\item\em make\+Splits manages, given the current node and the new point to be inserted in the triangulation, the incremental step. Create three triangles using the new point and the vertices of the triangle to which the node refers. Once created, the triangles are inserted into the vector of triangles and the three relative nodes are created in the structure of the D\+AG. Once the structures are updated, the adjacencies of each new triangle are also updated, and the adjacencies of the split triangle are updated too. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_a7ddea00b836f3c30e15dd375954b67d2}{add\+Point\+To\+Triangulation} (const cg3\+::\+Point2\+Dd \&new\+Point)
+\begin{DoxyCompactList}\small\item\em add\+Point\+To\+Triangulation is the method that permit to add a point in triangulation and calls all the related method in order to correctly manage the insertion process. Given a point, the function searches in which node of the lying. Once arrived at a leaf (the node containing the point), the leaf flag of the corresponding triangle is setted to false. The split function (make\+Splits) is called in order to manage the incremental step of the algorithm. Once the children are created, the legalize\+Edge function is called on each of them. At the end it will have updated our structure with the addition of the input point provided. \end{DoxyCompactList}\item 
+void \hyperlink{classDelaunayTriangulation_a42f6c359c7ebb3ed89cbba567e3d9e7c}{legalize\+Edge} (\hyperlink{classDagNode}{Dag\+Node} $\ast$node, size\+\_\+t lower\+Brother\+Index)
+\begin{DoxyCompactList}\small\item\em legalize\+Edge has the task of managing illegal edges, the node to be checked is given in input together with a support parameter that corresponds to the smallest index among the brothers of the node to be controlled (this to avoid unnecessary checks). Considering the adjacent triangle, once its opposite point is found, it checks if this point is inside the vertex of the triangle created with the new point (the new point of the triangulation is always inserted as v1). If it is inside, then it is considered as an illegal edge, two triangles are created and all the structures are updated, considering that this time the children due to edge flip will be shared by both the current node (node) and its adjacent (adjacent\+Node). Once everything is updated, the recursive call is made on both children generated by the edge flip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_ab0929cd320b67201acc734e425ba1505}\label{classDelaunayTriangulation_ab0929cd320b67201acc734e425ba1505}} 
+void \hyperlink{classDelaunayTriangulation_ab0929cd320b67201acc734e425ba1505}{clear\+Delaunay\+Triangulation} ()
+\begin{DoxyCompactList}\small\item\em clear\+Delaunay\+Triangulation clear all the data structures of the triangulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_a0d7037cf5f5b644da9e5c2f05be935b2}\label{classDelaunayTriangulation_a0d7037cf5f5b644da9e5c2f05be935b2}} 
+std\+::vector$<$ \hyperlink{classTriangle}{Triangle} $>$ {\bfseries \+\_\+delauney\+Triangles}
+\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_a7c8a29e099e2b5baa010a19970f751a9}\label{classDelaunayTriangulation_a7c8a29e099e2b5baa010a19970f751a9}} 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ {\bfseries \+\_\+dag}
+\item 
+\mbox{\Hypertarget{classDelaunayTriangulation_a1a521540379462db66a675bfb8e9ab44}\label{classDelaunayTriangulation_a1a521540379462db66a675bfb8e9ab44}} 
+std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ {\bfseries \+\_\+all\+Node\+Collection}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that manage the Delaunay Triangulation. The aim of this class is to build and fill all the data structures that rappresenting the triangulation. This class contains a vector of triangles that collect all that triangles made by splits; a dag node pointer used to build the D\+AG structure starting from the root (the bounding triangle); a vector of dag\+Node pointer that collect all the created pointer of the D\+AG (this is made to manage the cancellation of the dag and the construction of the voronoi diagram) 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDelaunayTriangulation_a7899c4090d9c578b0b92df9a9ae4ecaf}\label{classDelaunayTriangulation_a7899c4090d9c578b0b92df9a9ae4ecaf}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{Delaunay\+Triangulation()}{DelaunayTriangulation()}}
+{\footnotesize\ttfamily Delaunay\+Triangulation\+::\+Delaunay\+Triangulation (\begin{DoxyParamCaption}\item[{const \hyperlink{classTriangle}{Triangle} \&}]{bounding\+Triangle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor using the bounding triangle\textquotesingle{}s reference. Once the triangle is pushed inside the triangles vector, its index is used to instantiate the dag root. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bounding\+Triangle} & the reference of the bounding triangle. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDelaunayTriangulation_a7ddea00b836f3c30e15dd375954b67d2}\label{classDelaunayTriangulation_a7ddea00b836f3c30e15dd375954b67d2}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!add\+Point\+To\+Triangulation@{add\+Point\+To\+Triangulation}}
+\index{add\+Point\+To\+Triangulation@{add\+Point\+To\+Triangulation}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{add\+Point\+To\+Triangulation()}{addPointToTriangulation()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::add\+Point\+To\+Triangulation (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{new\+Point }\end{DoxyParamCaption})}
+
+
+
+add\+Point\+To\+Triangulation is the method that permit to add a point in triangulation and calls all the related method in order to correctly manage the insertion process. Given a point, the function searches in which node of the lying. Once arrived at a leaf (the node containing the point), the leaf flag of the corresponding triangle is setted to false. The split function (make\+Splits) is called in order to manage the incremental step of the algorithm. Once the children are created, the legalize\+Edge function is called on each of them. At the end it will have updated our structure with the addition of the input point provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Point} & -\/ the reference of the new\+Point to add to the triangulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_ac89a4e0a261185c9ed1c716d007c97c2}\label{classDelaunayTriangulation_ac89a4e0a261185c9ed1c716d007c97c2}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!add\+Triangle\+To\+Triangulation@{add\+Triangle\+To\+Triangulation}}
+\index{add\+Triangle\+To\+Triangulation@{add\+Triangle\+To\+Triangulation}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{add\+Triangle\+To\+Triangulation()}{addTriangleToTriangulation()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::add\+Triangle\+To\+Triangulation (\begin{DoxyParamCaption}\item[{const \hyperlink{classTriangle}{Triangle} \&}]{new\+Triangle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+add\+Triangle\+To\+Triangulation add a triangle inside the vector of triangles. Once added the other internal structures are setted. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & reference of the new \hyperlink{classTriangle}{Triangle} to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_a299f5ae7d5bbce0902ff8e05453ada94}\label{classDelaunayTriangulation_a299f5ae7d5bbce0902ff8e05453ada94}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+All\+Dag\+Nodes@{get\+All\+Dag\+Nodes}}
+\index{get\+All\+Dag\+Nodes@{get\+All\+Dag\+Nodes}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+All\+Dag\+Nodes()}{getAllDagNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& Delaunay\+Triangulation\+::get\+All\+Dag\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get\+All\+Dag\+Nodes get a reference to the vector of D\+AG nodes. 
+
+\begin{DoxyReturn}{Returns}
+a reference to the vector of D\+AG nodes. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_a51d03a00c3df3a39981740142fb6d160}\label{classDelaunayTriangulation_a51d03a00c3df3a39981740142fb6d160}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+Child\+Contains\+Point@{get\+Child\+Contains\+Point}}
+\index{get\+Child\+Contains\+Point@{get\+Child\+Contains\+Point}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+Child\+Contains\+Point()}{getChildContainsPoint()}}
+{\footnotesize\ttfamily \hyperlink{classDagNode}{Dag\+Node} $\ast$ Delaunay\+Triangulation\+::get\+Child\+Contains\+Point (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$\&}]{current\+Node,  }\item[{const cg3\+::\+Point2\+Dd \&}]{point }\end{DoxyParamCaption})}
+
+
+
+get\+Child\+Contains\+Point, given the current node and the new point to be inserted in the triangulation, return the children that cointains the point. scrolling through the list of children, it is checked which contains the node and is then returned. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & the pointer to the node that store the triangle\textquotesingle{}s index that contains the new point \\
+\hline
+{\em new\+Point} & the reference of the new point to insert in the triangulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the next pointer of the D\+AG structure that contains the point 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_ae3063d43c2871b7d2e610c16d8d30d84}\label{classDelaunayTriangulation_ae3063d43c2871b7d2e610c16d8d30d84}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+D\+AG@{get\+D\+AG}}
+\index{get\+D\+AG@{get\+D\+AG}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+D\+A\+G()}{getDAG()}}
+{\footnotesize\ttfamily \hyperlink{classDagNode}{Dag\+Node} $\ast$ Delaunay\+Triangulation\+::get\+D\+AG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get\+D\+AG get the pointer to the dag root 
+
+\begin{DoxyReturn}{Returns}
+the pointer to the dag root 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_ae5f5d0fe187dd2709b3673af78ec738c}\label{classDelaunayTriangulation_ae5f5d0fe187dd2709b3673af78ec738c}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+Leaves@{get\+Leaves}}
+\index{get\+Leaves@{get\+Leaves}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+Leaves()}{getLeaves()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{classTriangle}{Triangle} $>$ Delaunay\+Triangulation\+::get\+Leaves (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get\+Leaves get the vector of triangles leaves. 
+
+\begin{DoxyReturn}{Returns}
+a vector of triangles 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_a1c7cb250302b491e765c9de4b5c0f0d5}\label{classDelaunayTriangulation_a1c7cb250302b491e765c9de4b5c0f0d5}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+Opposite\+Point@{get\+Opposite\+Point}}
+\index{get\+Opposite\+Point@{get\+Opposite\+Point}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+Opposite\+Point()}{getOppositePoint()}}
+{\footnotesize\ttfamily cg3\+::\+Point2\+Dd Delaunay\+Triangulation\+::get\+Opposite\+Point (\begin{DoxyParamCaption}\item[{const \hyperlink{classTriangle}{Triangle} \&}]{current\+Triangle,  }\item[{const \hyperlink{classTriangle}{Triangle} \&}]{adjacent\+Triangle }\end{DoxyParamCaption})}
+
+
+
+get\+Opposite\+Point get the point opposite the triangle under consideration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Triangle} & is the pointer to the node under consideration. \\
+\hline
+{\em adjacent\+Triangle} & is the pointer to the node adjacent to current\+Triangle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the point opposite the triangle under consideration. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_a52b0689002927ddaecf48dab2b485037}\label{classDelaunayTriangulation_a52b0689002927ddaecf48dab2b485037}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!get\+Triangles@{get\+Triangles}}
+\index{get\+Triangles@{get\+Triangles}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{get\+Triangles()}{getTriangles()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \hyperlink{classTriangle}{Triangle} $>$ \& Delaunay\+Triangulation\+::get\+Triangles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get\+Trianles get the reference to the vector of triangles 
+
+\begin{DoxyReturn}{Returns}
+the reference of the vector of triangles 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_aba49c3a9a71f8c8a789c025b8b1aafe6}\label{classDelaunayTriangulation_aba49c3a9a71f8c8a789c025b8b1aafe6}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!is\+Point\+In\+Node@{is\+Point\+In\+Node}}
+\index{is\+Point\+In\+Node@{is\+Point\+In\+Node}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{is\+Point\+In\+Node()}{isPointInNode()}}
+{\footnotesize\ttfamily bool Delaunay\+Triangulation\+::is\+Point\+In\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$\&}]{current\+Node,  }\item[{const cg3\+::\+Point2\+Dd \&}]{point }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+is\+Point\+In\+Node check if a point is lying in the triangle inside the current dag node 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ the reference of the new\+Point to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the point lies in the node\textquotesingle{}s triangle, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDelaunayTriangulation_a42f6c359c7ebb3ed89cbba567e3d9e7c}\label{classDelaunayTriangulation_a42f6c359c7ebb3ed89cbba567e3d9e7c}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!legalize\+Edge@{legalize\+Edge}}
+\index{legalize\+Edge@{legalize\+Edge}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{legalize\+Edge()}{legalizeEdge()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::legalize\+Edge (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{node,  }\item[{size\+\_\+t}]{lower\+Brother\+Index }\end{DoxyParamCaption})}
+
+
+
+legalize\+Edge has the task of managing illegal edges, the node to be checked is given in input together with a support parameter that corresponds to the smallest index among the brothers of the node to be controlled (this to avoid unnecessary checks). Considering the adjacent triangle, once its opposite point is found, it checks if this point is inside the vertex of the triangle created with the new point (the new point of the triangulation is always inserted as v1). If it is inside, then it is considered as an illegal edge, two triangles are created and all the structures are updated, considering that this time the children due to edge flip will be shared by both the current node (node) and its adjacent (adjacent\+Node). Once everything is updated, the recursive call is made on both children generated by the edge flip. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & the pointer to the node that store the triangle\textquotesingle{}s index created before. \\
+\hline
+{\em lower\+Brother\+Index} & support parameter to avoid to check the brothers of the triangles created. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_ae8371bf6493a9866b29a8fe896fb345c}\label{classDelaunayTriangulation_ae8371bf6493a9866b29a8fe896fb345c}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!make\+Splits@{make\+Splits}}
+\index{make\+Splits@{make\+Splits}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{make\+Splits()}{makeSplits()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::make\+Splits (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{current\+Node,  }\item[{const cg3\+::\+Point2\+Dd \&}]{new\+Point }\end{DoxyParamCaption})}
+
+
+
+make\+Splits manages, given the current node and the new point to be inserted in the triangulation, the incremental step. Create three triangles using the new point and the vertices of the triangle to which the node refers. Once created, the triangles are inserted into the vector of triangles and the three relative nodes are created in the structure of the D\+AG. Once the structures are updated, the adjacencies of each new triangle are also updated, and the adjacencies of the split triangle are updated too. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & the pointer to the node that store the triangle\textquotesingle{}s index that contains the new point \\
+\hline
+{\em new\+Point} & the reference of the new point to insert in the triangulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_a34b3d30daa7889e830aae836cb5cc243}\label{classDelaunayTriangulation_a34b3d30daa7889e830aae836cb5cc243}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!update\+Adjacencies@{update\+Adjacencies}}
+\index{update\+Adjacencies@{update\+Adjacencies}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{update\+Adjacencies()}{updateAdjacencies()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::update\+Adjacencies (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{father,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{child,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{node\+Of\+First\+Brother,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{node\+Of\+Second\+Brother }\end{DoxyParamCaption})}
+
+
+
+update\+Adjacencies is used in the incremental step, in make\+Splits, to update the adjacencies of the triangles generated by the insertion of the new point. Given the pointer to the father, all its adjacencies are taken. Once an adjacency is found, the update process is stopped. At the end the brothers of the created node are inserted between the adjacencies. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em father} & is the pointer to the node that has been splitted. \\
+\hline
+{\em child} & is the pointer to one of the node that was created before to which adjacencies will be updated. \\
+\hline
+{\em node\+Of\+First\+Brother} & is the pointer to one of the brothers generated before. \\
+\hline
+{\em node\+Of\+Second\+Brother} & is the pointer to one of the brothers generated before. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_a60424bc156930d5b9700f8288fb3cc96}\label{classDelaunayTriangulation_a60424bc156930d5b9700f8288fb3cc96}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!update\+Adjacencies\+On\+Brothers@{update\+Adjacencies\+On\+Brothers}}
+\index{update\+Adjacencies\+On\+Brothers@{update\+Adjacencies\+On\+Brothers}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{update\+Adjacencies\+On\+Brothers()}{updateAdjacenciesOnBrothers()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::update\+Adjacencies\+On\+Brothers (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{adjacent,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{splitted\+Brother }\end{DoxyParamCaption})}
+
+
+
+update\+Adjacencies\+On\+Brothers is used in the incremental step, in the make\+Splits function, to update the adjacencies of the triangles that were adiacent to the split node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adjacent} & is the pointer to the node that was adjacent to the one splitted. \\
+\hline
+{\em splitted\+Brother} & is the pointer to the splitted node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelaunayTriangulation_a49d4c863ce9fa1d105e2b5d2dcec7d3c}\label{classDelaunayTriangulation_a49d4c863ce9fa1d105e2b5d2dcec7d3c}} 
+\index{Delaunay\+Triangulation@{Delaunay\+Triangulation}!update\+Adjacencies\+On\+Edge\+Flip@{update\+Adjacencies\+On\+Edge\+Flip}}
+\index{update\+Adjacencies\+On\+Edge\+Flip@{update\+Adjacencies\+On\+Edge\+Flip}!Delaunay\+Triangulation@{Delaunay\+Triangulation}}
+\subsubsection{\texorpdfstring{update\+Adjacencies\+On\+Edge\+Flip()}{updateAdjacenciesOnEdgeFlip()}}
+{\footnotesize\ttfamily void Delaunay\+Triangulation\+::update\+Adjacencies\+On\+Edge\+Flip (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{father\+\_\+1,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{father\+\_\+2,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{child,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{brother\+Node }\end{DoxyParamCaption})}
+
+
+
+update\+Adjacencies\+On\+Edge\+Flip is used in legalize\+Edge to update the adjacencies of the triangles generated due to the edge flip. Considering that the triangles generated in the edge flip, share two different fathers, they can inherit the adjacencies from one of them. Naturally also the adjacencies of the triangles adjacent to the father are updated with the new nodes created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em father\+\_\+1} & is the pointer to one of the node that was involved in the edge flip. \\
+\hline
+{\em father\+\_\+2} & is the pointer to one of the node that was involved in the edge flip. \\
+\hline
+{\em child} & is the pointer to one of the nodes created by the edge flip and to which adjacencies will be updated. \\
+\hline
+{\em brother\+Node} & is the pointer to the other node created by the edge flip. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jarvis/as2-\/project-\/\+Giacomo\+Meloni/\+G\+A\+S\+\_\+2019\+\_\+\+Delaunay/algorithms/delaunaytriangulation.\+h\item 
+/home/jarvis/as2-\/project-\/\+Giacomo\+Meloni/\+G\+A\+S\+\_\+2019\+\_\+\+Delaunay/algorithms/delaunaytriangulation.\+cpp\end{DoxyCompactItemize}

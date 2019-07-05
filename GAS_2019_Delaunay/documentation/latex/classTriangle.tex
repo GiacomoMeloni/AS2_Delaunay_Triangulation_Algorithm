@@ -1,0 +1,389 @@
+\hypertarget{classTriangle}{}\section{Triangle Class Reference}
+\label{classTriangle}\index{Triangle@{Triangle}}
+
+
+Class representing a 2D \hyperlink{classTriangle}{Triangle}. The triangle is rappresented by three vertices. The vertices order is counter-\/clockwise.  
+
+
+
+
+{\ttfamily \#include $<$triangle.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriangle_aaefe4ed500c07918d30c6f0e286332c5}\label{classTriangle_aaefe4ed500c07918d30c6f0e286332c5}} 
+\hyperlink{classTriangle_aaefe4ed500c07918d30c6f0e286332c5}{Triangle} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classTriangle_a3bb081f3c4d90284e27e1005a2b33599}{Triangle} (const cg3\+::\+Point2\+Dd \&v1, const cg3\+::\+Point2\+Dd \&v2, const cg3\+::\+Point2\+Dd \&v3)
+\begin{DoxyCompactList}\small\item\em Constructor with the points (counter-\/clockwise), if not specified the attribute \+\_\+is\+A\+Leaf, used to check if a triangle is part of the triangulation, is setted to false. \end{DoxyCompactList}\item 
+\hyperlink{classTriangle_a117fd4a79f805e6cfa5af2ea9067da88}{Triangle} (const cg3\+::\+Point2\+Dd \&v1, const cg3\+::\+Point2\+Dd \&v2, const cg3\+::\+Point2\+Dd \&v3, const bool \&is\+A\+Leaf)
+\begin{DoxyCompactList}\small\item\em Constructor with the points (counter-\/clockwise) \end{DoxyCompactList}\item 
+const cg3\+::\+Point2\+Dd \& \hyperlink{classTriangle_a70da71528307c6b80cf0334f1ccd13a0}{get\+V1} () const
+\begin{DoxyCompactList}\small\item\em Get the reference of the first vertex of the triangle. \end{DoxyCompactList}\item 
+const cg3\+::\+Point2\+Dd \& \hyperlink{classTriangle_afd1afc04804cd49af6bf81c162b8c984}{get\+V2} () const
+\begin{DoxyCompactList}\small\item\em Get the reference of the second vertex of the triangle. \end{DoxyCompactList}\item 
+const cg3\+::\+Point2\+Dd \& \hyperlink{classTriangle_abe96c8ea9aaf52e921b9e6420a5d6a35}{get\+V3} () const
+\begin{DoxyCompactList}\small\item\em Get the reference of the third vertex of the triangle. \end{DoxyCompactList}\item 
+const std\+::vector$<$ cg3\+::\+Point2\+Dd $>$ \hyperlink{classTriangle_aba56c2fbfb76c584343eef793e437bb7}{get\+Vertices} () const
+\begin{DoxyCompactList}\small\item\em Get the vertices of the triangle. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ cg3\+::\+Point2\+Dd, cg3\+::\+Point2\+Dd $>$ $>$ \hyperlink{classTriangle_a0b67c787d0d6e2fcf38da1d534463e41}{get\+Edges} () const
+\begin{DoxyCompactList}\small\item\em Get the edges of the triangle. \end{DoxyCompactList}\item 
+bool \hyperlink{classTriangle_a92fb8b4f8ac36287416f61ae9a1065b4}{get\+Is\+A\+Leaf} () const
+\begin{DoxyCompactList}\small\item\em Get the status of the triangle (if is a leaf or not, considering the dag) \end{DoxyCompactList}\item 
+cg3\+::\+Point2\+Dd \hyperlink{classTriangle_a0889cfdbbf72330793f0b4327a335c2b}{get\+Circle\+Center} () const
+\begin{DoxyCompactList}\small\item\em Calculate the circumcenter of the triangle. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_a419907b86c91c0b35fcbcfb1f8c96844}{set\+V1} (const cg3\+::\+Point2\+Dd \&v)
+\begin{DoxyCompactList}\small\item\em Set the value of the first vertex. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_a5480bcac5b89d6d9f9264f7e2ef2e6f9}{set\+V2} (const cg3\+::\+Point2\+Dd \&v)
+\begin{DoxyCompactList}\small\item\em Set the value of the second vertex. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_aa4f71f3556101b310e026c450f9f2335}{set\+V3} (const cg3\+::\+Point2\+Dd \&v)
+\begin{DoxyCompactList}\small\item\em Set the value of the third vertex. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_a811b58ebb5cf40b603b62cfe3c4035fd}{set\+Vertices} (const cg3\+::\+Point2\+Dd \&v1, const cg3\+::\+Point2\+Dd \&v2, const cg3\+::\+Point2\+Dd \&v3)
+\begin{DoxyCompactList}\small\item\em Set the vertices of the triangle. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_aa5389d1d6bee855ffa358313c76b54ed}{set\+Is\+A\+Leaf} (bool status)
+\begin{DoxyCompactList}\small\item\em Set the status of the triangle. \end{DoxyCompactList}\item 
+bool \hyperlink{classTriangle_a3d6e11f16208fb48d84bd7e2381d42cf}{is\+Adjacent} (const \hyperlink{classTriangle}{Triangle} \&triangle)
+\begin{DoxyCompactList}\small\item\em Check if the current triangle and the other given in input are adjacent (share two of the three vertices) \end{DoxyCompactList}\item 
+cg3\+::\+Point2\+Dd \hyperlink{classTriangle_a4d120f7288b7051a1cf442268edd328d}{get\+Center} () const
+\begin{DoxyCompactList}\small\item\em Return triangle\textquotesingle{}s center. \end{DoxyCompactList}\item 
+double \hyperlink{classTriangle_aea05889b09b94496f35019968eb728f7}{get\+Hypotenuse} () const
+\begin{DoxyCompactList}\small\item\em Return triangle\textquotesingle{}s hypotenuse. \end{DoxyCompactList}\item 
+bool \hyperlink{classTriangle_ad9b70705bcfcf0fa05f7d504a21df6ed}{check\+Orientation\+Counterclockwise} (const cg3\+::\+Point2\+Dd \&v1, const cg3\+::\+Point2\+Dd \&v2, const cg3\+::\+Point2\+Dd \&v3) const
+\begin{DoxyCompactList}\small\item\em Check if the triangle vertices are in counterclockwise order. \end{DoxyCompactList}\item 
+void \hyperlink{classTriangle_a09755b9bde993025210c04f6b4b90896}{ordering\+Counter\+Clockwise} ()
+\begin{DoxyCompactList}\small\item\em Order the last two vertices to have a counterclockwise vertices order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriangle_ab51536b30b9a7709514e6d10bbf33a4e}\label{classTriangle_ab51536b30b9a7709514e6d10bbf33a4e}} 
+cg3\+::\+Point2\+Dd {\bfseries \+\_\+v1}
+\item 
+\mbox{\Hypertarget{classTriangle_a98b931dfda3a17c79eba8312f26b6d61}\label{classTriangle_a98b931dfda3a17c79eba8312f26b6d61}} 
+cg3\+::\+Point2\+Dd {\bfseries \+\_\+v2}
+\item 
+\mbox{\Hypertarget{classTriangle_a28bee5284bdcb0ff2a23ae6d035a1763}\label{classTriangle_a28bee5284bdcb0ff2a23ae6d035a1763}} 
+cg3\+::\+Point2\+Dd {\bfseries \+\_\+v3}
+\item 
+\mbox{\Hypertarget{classTriangle_a6b674fb1331ad7b25b661f7df8606c63}\label{classTriangle_a6b674fb1331ad7b25b661f7df8606c63}} 
+bool {\bfseries \+\_\+is\+A\+Leaf}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing a 2D \hyperlink{classTriangle}{Triangle}. The triangle is rappresented by three vertices. The vertices order is counter-\/clockwise. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTriangle_a3bb081f3c4d90284e27e1005a2b33599}\label{classTriangle_a3bb081f3c4d90284e27e1005a2b33599}} 
+\index{Triangle@{Triangle}!Triangle@{Triangle}}
+\index{Triangle@{Triangle}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{Triangle()}{Triangle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Triangle\+::\+Triangle (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v1,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v2,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v3 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with the points (counter-\/clockwise), if not specified the attribute \+\_\+is\+A\+Leaf, used to check if a triangle is part of the triangulation, is setted to false. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & reference of the first vertex \\
+\hline
+{\em v2} & reference of the second vertex \\
+\hline
+{\em v3} & reference of the third vertex \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTriangle_a117fd4a79f805e6cfa5af2ea9067da88}\label{classTriangle_a117fd4a79f805e6cfa5af2ea9067da88}} 
+\index{Triangle@{Triangle}!Triangle@{Triangle}}
+\index{Triangle@{Triangle}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{Triangle()}{Triangle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Triangle\+::\+Triangle (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v1,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v2,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v3,  }\item[{const bool \&}]{is\+A\+Leaf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with the points (counter-\/clockwise) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & reference of the first vertex \\
+\hline
+{\em v2} & reference of the second vertex \\
+\hline
+{\em v3} & reference of the third vertex \\
+\hline
+{\em is\+A\+Leaf} & set the status of triangle \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTriangle_ad9b70705bcfcf0fa05f7d504a21df6ed}\label{classTriangle_ad9b70705bcfcf0fa05f7d504a21df6ed}} 
+\index{Triangle@{Triangle}!check\+Orientation\+Counterclockwise@{check\+Orientation\+Counterclockwise}}
+\index{check\+Orientation\+Counterclockwise@{check\+Orientation\+Counterclockwise}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{check\+Orientation\+Counterclockwise()}{checkOrientationCounterclockwise()}}
+{\footnotesize\ttfamily bool Triangle\+::check\+Orientation\+Counterclockwise (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v1,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v2,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v3 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the triangle vertices are in counterclockwise order. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & -\/ reference of the first vertex \\
+\hline
+{\em v2} & -\/ reference of the second vertex \\
+\hline
+{\em v3} & -\/ reference of the third vertex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if vertices are in counterclockwise order false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a4d120f7288b7051a1cf442268edd328d}\label{classTriangle_a4d120f7288b7051a1cf442268edd328d}} 
+\index{Triangle@{Triangle}!get\+Center@{get\+Center}}
+\index{get\+Center@{get\+Center}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Center()}{getCenter()}}
+{\footnotesize\ttfamily cg3\+::\+Point2\+Dd Triangle\+::get\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return triangle\textquotesingle{}s center. 
+
+\begin{DoxyReturn}{Returns}
+the center point inside the triangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a0889cfdbbf72330793f0b4327a335c2b}\label{classTriangle_a0889cfdbbf72330793f0b4327a335c2b}} 
+\index{Triangle@{Triangle}!get\+Circle\+Center@{get\+Circle\+Center}}
+\index{get\+Circle\+Center@{get\+Circle\+Center}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Circle\+Center()}{getCircleCenter()}}
+{\footnotesize\ttfamily cg3\+::\+Point2\+Dd Triangle\+::get\+Circle\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Calculate the circumcenter of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+the point of the circumcenter 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a0b67c787d0d6e2fcf38da1d534463e41}\label{classTriangle_a0b67c787d0d6e2fcf38da1d534463e41}} 
+\index{Triangle@{Triangle}!get\+Edges@{get\+Edges}}
+\index{get\+Edges@{get\+Edges}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Edges()}{getEdges()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ cg3\+::\+Point2\+Dd, cg3\+::\+Point2\+Dd $>$ $>$ Triangle\+::get\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the edges of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+edges the list of triangle\textquotesingle{}s edges 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_aea05889b09b94496f35019968eb728f7}\label{classTriangle_aea05889b09b94496f35019968eb728f7}} 
+\index{Triangle@{Triangle}!get\+Hypotenuse@{get\+Hypotenuse}}
+\index{get\+Hypotenuse@{get\+Hypotenuse}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Hypotenuse()}{getHypotenuse()}}
+{\footnotesize\ttfamily double Triangle\+::get\+Hypotenuse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return triangle\textquotesingle{}s hypotenuse. 
+
+\begin{DoxyReturn}{Returns}
+the hypotenuse\textquotesingle{}s value of the triangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a92fb8b4f8ac36287416f61ae9a1065b4}\label{classTriangle_a92fb8b4f8ac36287416f61ae9a1065b4}} 
+\index{Triangle@{Triangle}!get\+Is\+A\+Leaf@{get\+Is\+A\+Leaf}}
+\index{get\+Is\+A\+Leaf@{get\+Is\+A\+Leaf}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Is\+A\+Leaf()}{getIsALeaf()}}
+{\footnotesize\ttfamily bool Triangle\+::get\+Is\+A\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the status of the triangle (if is a leaf or not, considering the dag) 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+is\+A\+Leaf the status of the triangle inside the dag 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a70da71528307c6b80cf0334f1ccd13a0}\label{classTriangle_a70da71528307c6b80cf0334f1ccd13a0}} 
+\index{Triangle@{Triangle}!get\+V1@{get\+V1}}
+\index{get\+V1@{get\+V1}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+V1()}{getV1()}}
+{\footnotesize\ttfamily const cg3\+::\+Point2\+Dd \& Triangle\+::get\+V1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the reference of the first vertex of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+v1 the reference of the first triangle\textquotesingle{}s vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_afd1afc04804cd49af6bf81c162b8c984}\label{classTriangle_afd1afc04804cd49af6bf81c162b8c984}} 
+\index{Triangle@{Triangle}!get\+V2@{get\+V2}}
+\index{get\+V2@{get\+V2}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+V2()}{getV2()}}
+{\footnotesize\ttfamily const cg3\+::\+Point2\+Dd \& Triangle\+::get\+V2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the reference of the second vertex of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+v2 the reference of the second triangle\textquotesingle{}s vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_abe96c8ea9aaf52e921b9e6420a5d6a35}\label{classTriangle_abe96c8ea9aaf52e921b9e6420a5d6a35}} 
+\index{Triangle@{Triangle}!get\+V3@{get\+V3}}
+\index{get\+V3@{get\+V3}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+V3()}{getV3()}}
+{\footnotesize\ttfamily const cg3\+::\+Point2\+Dd \& Triangle\+::get\+V3 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the reference of the third vertex of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+v3 the reference of the third triangle\textquotesingle{}s vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_aba56c2fbfb76c584343eef793e437bb7}\label{classTriangle_aba56c2fbfb76c584343eef793e437bb7}} 
+\index{Triangle@{Triangle}!get\+Vertices@{get\+Vertices}}
+\index{get\+Vertices@{get\+Vertices}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{get\+Vertices()}{getVertices()}}
+{\footnotesize\ttfamily const std\+::vector$<$ cg3\+::\+Point2\+Dd $>$ Triangle\+::get\+Vertices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the vertices of the triangle. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+vertices the list of triangle\textquotesingle{}s vertices 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a3d6e11f16208fb48d84bd7e2381d42cf}\label{classTriangle_a3d6e11f16208fb48d84bd7e2381d42cf}} 
+\index{Triangle@{Triangle}!is\+Adjacent@{is\+Adjacent}}
+\index{is\+Adjacent@{is\+Adjacent}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{is\+Adjacent()}{isAdjacent()}}
+{\footnotesize\ttfamily bool Triangle\+::is\+Adjacent (\begin{DoxyParamCaption}\item[{const \hyperlink{classTriangle}{Triangle} \&}]{triangle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the current triangle and the other given in input are adjacent (share two of the three vertices) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em triangle} & is the other triangle to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the tiangles are Adjacent, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a09755b9bde993025210c04f6b4b90896}\label{classTriangle_a09755b9bde993025210c04f6b4b90896}} 
+\index{Triangle@{Triangle}!ordering\+Counter\+Clockwise@{ordering\+Counter\+Clockwise}}
+\index{ordering\+Counter\+Clockwise@{ordering\+Counter\+Clockwise}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{ordering\+Counter\+Clockwise()}{orderingCounterClockwise()}}
+{\footnotesize\ttfamily void Triangle\+::ordering\+Counter\+Clockwise (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Order the last two vertices to have a counterclockwise vertices order. 
+
+\begin{DoxyReturn}{Returns}
+vertices ordered in counterclockwise order 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_aa5389d1d6bee855ffa358313c76b54ed}\label{classTriangle_aa5389d1d6bee855ffa358313c76b54ed}} 
+\index{Triangle@{Triangle}!set\+Is\+A\+Leaf@{set\+Is\+A\+Leaf}}
+\index{set\+Is\+A\+Leaf@{set\+Is\+A\+Leaf}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{set\+Is\+A\+Leaf()}{setIsALeaf()}}
+{\footnotesize\ttfamily void Triangle\+::set\+Is\+A\+Leaf (\begin{DoxyParamCaption}\item[{bool}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the status of the triangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & the new triangle\textquotesingle{}s status \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new status of the triangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a419907b86c91c0b35fcbcfb1f8c96844}\label{classTriangle_a419907b86c91c0b35fcbcfb1f8c96844}} 
+\index{Triangle@{Triangle}!set\+V1@{set\+V1}}
+\index{set\+V1@{set\+V1}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{set\+V1()}{setV1()}}
+{\footnotesize\ttfamily void Triangle\+::set\+V1 (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the value of the first vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & reference of the new vertex value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new value of first vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a5480bcac5b89d6d9f9264f7e2ef2e6f9}\label{classTriangle_a5480bcac5b89d6d9f9264f7e2ef2e6f9}} 
+\index{Triangle@{Triangle}!set\+V2@{set\+V2}}
+\index{set\+V2@{set\+V2}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{set\+V2()}{setV2()}}
+{\footnotesize\ttfamily void Triangle\+::set\+V2 (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the value of the second vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & reference of the new vertex value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new value of second vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_aa4f71f3556101b310e026c450f9f2335}\label{classTriangle_aa4f71f3556101b310e026c450f9f2335}} 
+\index{Triangle@{Triangle}!set\+V3@{set\+V3}}
+\index{set\+V3@{set\+V3}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{set\+V3()}{setV3()}}
+{\footnotesize\ttfamily void Triangle\+::set\+V3 (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the value of the third vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & reference of the new vertex value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new value of third vertex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_a811b58ebb5cf40b603b62cfe3c4035fd}\label{classTriangle_a811b58ebb5cf40b603b62cfe3c4035fd}} 
+\index{Triangle@{Triangle}!set\+Vertices@{set\+Vertices}}
+\index{set\+Vertices@{set\+Vertices}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{set\+Vertices()}{setVertices()}}
+{\footnotesize\ttfamily void Triangle\+::set\+Vertices (\begin{DoxyParamCaption}\item[{const cg3\+::\+Point2\+Dd \&}]{v1,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v2,  }\item[{const cg3\+::\+Point2\+Dd \&}]{v3 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the vertices of the triangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & reference of first vertex\textquotesingle{}s new value \\
+\hline
+{\em v2} & reference of second vertex\textquotesingle{}s new value \\
+\hline
+{\em v3} & reference of third vertex\textquotesingle{}s new value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new values for the vertices of the triangle 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jarvis/as2-\/project-\/\+Giacomo\+Meloni/\+G\+A\+S\+\_\+2019\+\_\+\+Delaunay/data\+\_\+structures/triangle.\+h\item 
+/home/jarvis/as2-\/project-\/\+Giacomo\+Meloni/\+G\+A\+S\+\_\+2019\+\_\+\+Delaunay/data\+\_\+structures/triangle.\+cpp\end{DoxyCompactItemize}

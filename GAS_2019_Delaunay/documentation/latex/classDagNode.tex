@@ -1,0 +1,257 @@
+\hypertarget{classDagNode}{}\section{Dag\+Node Class Reference}
+\label{classDagNode}\index{Dag\+Node@{Dag\+Node}}
+
+
+Class representing a D\+AG node. A D\+AG node contain the index of the triangle in the array of the relative delauney triangulation class; a list of \hyperlink{classDagNode}{Dag\+Node} pointers to childrens; a list of \hyperlink{classDagNode}{Dag\+Node} pointers to the adjacent triangles that is updated every time something happens to the triangulation.  
+
+
+
+
+{\ttfamily \#include $<$dagnode.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDagNode_a4ed19a5e9d5ada51128fcc181f9830ae}\label{classDagNode_a4ed19a5e9d5ada51128fcc181f9830ae}} 
+\hyperlink{classDagNode_a4ed19a5e9d5ada51128fcc181f9830ae}{Dag\+Node} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classDagNode_ad44cf14086cd653ba9ede6762da32e83}{Dag\+Node} (size\+\_\+t \&idex\+Oftriangle)
+\begin{DoxyCompactList}\small\item\em Dag node constructor with the triangle\textquotesingle{}s index. \end{DoxyCompactList}\item 
+const size\+\_\+t \& \hyperlink{classDagNode_a5ff9ecbb6e1a5008c5b833afc8f08bab}{get\+Triangle\+Index} () const
+\begin{DoxyCompactList}\small\item\em Get the triangle index stored in the node. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& \hyperlink{classDagNode_a9da177349ffbfc980455d9ceae277d23}{get\+Childrens} () const
+\begin{DoxyCompactList}\small\item\em Get the list of current node\textquotesingle{}s childrens. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& \hyperlink{classDagNode_abc1bd7d5b2a39d85cd7bd924cdc984b3}{get\+Adjacencies} ()
+\begin{DoxyCompactList}\small\item\em Get the list of pointers to adjacents nodes to the triangle pointed by the current node. \end{DoxyCompactList}\item 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ \hyperlink{classDagNode_a35869cdb3ff3900d2ed4366270a39b83}{get\+First\+Child} () const
+\begin{DoxyCompactList}\small\item\em Get the pointer of the first child of the dag node. \end{DoxyCompactList}\item 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ \hyperlink{classDagNode_a301eaa7093739ce7892020a2a4c32cfd}{get\+Second\+Child} () const
+\begin{DoxyCompactList}\small\item\em Get the pointer of the second child of the dag node. \end{DoxyCompactList}\item 
+\hyperlink{classDagNode}{Dag\+Node} $\ast$ \hyperlink{classDagNode_a6a7af1fc33b66e3a22ebcf1b7da4f482}{get\+Third\+Child} () const
+\begin{DoxyCompactList}\small\item\em Get the pointer of the third child of the dag node. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classDagNode_afd0111a6b8b906c0ac68914436f2db0d}{get\+The\+Lower\+Triangle\+Index\+From\+Childrens} () const
+\begin{DoxyCompactList}\small\item\em Get the value of the minimux index between the current node\textquotesingle{}s childrens. \end{DoxyCompactList}\item 
+void \hyperlink{classDagNode_addfd2cfc5237217967c418bf72fd7f3e}{add\+Child} (\hyperlink{classDagNode}{Dag\+Node} $\ast$new\+Node)
+\begin{DoxyCompactList}\small\item\em Add a child in the list of the node. \end{DoxyCompactList}\item 
+void \hyperlink{classDagNode_a106926f7429347b10746b66039b1609b}{add\+Adjacencies} (\hyperlink{classDagNode}{Dag\+Node} $\ast$\&adjacent\+Node)
+\begin{DoxyCompactList}\small\item\em Add a pointer to a new reference of the adjacent node. \end{DoxyCompactList}\item 
+bool \hyperlink{classDagNode_af23fe9b192f5a629d3badf2c93475d2b}{check\+Number\+Of\+Childrens} () const
+\begin{DoxyCompactList}\small\item\em Check if the number of the children is more than 3. \end{DoxyCompactList}\item 
+bool \hyperlink{classDagNode_af3ed3a5eed4cb9bf04ec6ad9b6877cce}{is\+A\+Leaf} () const
+\begin{DoxyCompactList}\small\item\em Check if the current dag node is a leaf. \end{DoxyCompactList}\item 
+void \hyperlink{classDagNode_a5f70b777657539694e124557fcd35be1}{change\+Adjacencies} (\hyperlink{classDagNode}{Dag\+Node} $\ast$old, \hyperlink{classDagNode}{Dag\+Node} $\ast$current)
+\begin{DoxyCompactList}\small\item\em Replace the old adjacent node with the new one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDagNode_ac7d609f02e4b2bcd2c9636164496ce78}\label{classDagNode_ac7d609f02e4b2bcd2c9636164496ce78}} 
+size\+\_\+t {\bfseries \+\_\+triangle\+Index}
+\item 
+\mbox{\Hypertarget{classDagNode_a073e206f34225c1b173d9e9f7e5b0173}\label{classDagNode_a073e206f34225c1b173d9e9f7e5b0173}} 
+std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ {\bfseries \+\_\+childrens}
+\item 
+\mbox{\Hypertarget{classDagNode_a5ff072d7f04f759ed8c039578faf0b98}\label{classDagNode_a5ff072d7f04f759ed8c039578faf0b98}} 
+std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ {\bfseries \+\_\+adjacencies}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing a D\+AG node. A D\+AG node contain the index of the triangle in the array of the relative delauney triangulation class; a list of \hyperlink{classDagNode}{Dag\+Node} pointers to childrens; a list of \hyperlink{classDagNode}{Dag\+Node} pointers to the adjacent triangles that is updated every time something happens to the triangulation. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDagNode_ad44cf14086cd653ba9ede6762da32e83}\label{classDagNode_ad44cf14086cd653ba9ede6762da32e83}} 
+\index{Dag\+Node@{Dag\+Node}!Dag\+Node@{Dag\+Node}}
+\index{Dag\+Node@{Dag\+Node}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{Dag\+Node()}{DagNode()}}
+{\footnotesize\ttfamily Dag\+Node\+::\+Dag\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t \&}]{index\+Oftriangle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Dag node constructor with the triangle\textquotesingle{}s index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index\+Of\+Triangle} & -\/ the index of the triangle \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDagNode_a106926f7429347b10746b66039b1609b}\label{classDagNode_a106926f7429347b10746b66039b1609b}} 
+\index{Dag\+Node@{Dag\+Node}!add\+Adjacencies@{add\+Adjacencies}}
+\index{add\+Adjacencies@{add\+Adjacencies}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{add\+Adjacencies()}{addAdjacencies()}}
+{\footnotesize\ttfamily void Dag\+Node\+::add\+Adjacencies (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$\&}]{adjacent\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a pointer to a new reference of the adjacent node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adjacent\+Node} & -\/ the pointer of the dag node adjacent at the current one \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+add the node in the list of adjacencies of the current dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_addfd2cfc5237217967c418bf72fd7f3e}\label{classDagNode_addfd2cfc5237217967c418bf72fd7f3e}} 
+\index{Dag\+Node@{Dag\+Node}!add\+Child@{add\+Child}}
+\index{add\+Child@{add\+Child}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{add\+Child()}{addChild()}}
+{\footnotesize\ttfamily void Dag\+Node\+::add\+Child (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{new\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a child in the list of the node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Node} & -\/ the pointer of the new dag node created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+add the node in the list of childrens of the current dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a5f70b777657539694e124557fcd35be1}\label{classDagNode_a5f70b777657539694e124557fcd35be1}} 
+\index{Dag\+Node@{Dag\+Node}!change\+Adjacencies@{change\+Adjacencies}}
+\index{change\+Adjacencies@{change\+Adjacencies}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{change\+Adjacencies()}{changeAdjacencies()}}
+{\footnotesize\ttfamily void Dag\+Node\+::change\+Adjacencies (\begin{DoxyParamCaption}\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{old\+Adjacent,  }\item[{\hyperlink{classDagNode}{Dag\+Node} $\ast$}]{new\+Adjacent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Replace the old adjacent node with the new one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em old\+Adjacent} & the pointer to the old adjacent node \\
+\hline
+{\em new\+Adjacent} & the pointer to the new adjacent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the dag node doesn\textquotesingle{}t got any child, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_af23fe9b192f5a629d3badf2c93475d2b}\label{classDagNode_af23fe9b192f5a629d3badf2c93475d2b}} 
+\index{Dag\+Node@{Dag\+Node}!check\+Number\+Of\+Childrens@{check\+Number\+Of\+Childrens}}
+\index{check\+Number\+Of\+Childrens@{check\+Number\+Of\+Childrens}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{check\+Number\+Of\+Childrens()}{checkNumberOfChildrens()}}
+{\footnotesize\ttfamily bool Dag\+Node\+::check\+Number\+Of\+Childrens (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the number of the children is more than 3. 
+
+\begin{DoxyReturn}{Returns}
+true if the size of the children is less than 3, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_abc1bd7d5b2a39d85cd7bd924cdc984b3}\label{classDagNode_abc1bd7d5b2a39d85cd7bd924cdc984b3}} 
+\index{Dag\+Node@{Dag\+Node}!get\+Adjacencies@{get\+Adjacencies}}
+\index{get\+Adjacencies@{get\+Adjacencies}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+Adjacencies()}{getAdjacencies()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& Dag\+Node\+::get\+Adjacencies (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the list of pointers to adjacents nodes to the triangle pointed by the current node. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+ajacencies -\/ the list of adjacent nodes to the current node\textquotesingle{}s triangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a9da177349ffbfc980455d9ceae277d23}\label{classDagNode_a9da177349ffbfc980455d9ceae277d23}} 
+\index{Dag\+Node@{Dag\+Node}!get\+Childrens@{get\+Childrens}}
+\index{get\+Childrens@{get\+Childrens}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+Childrens()}{getChildrens()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \hyperlink{classDagNode}{Dag\+Node} $\ast$ $>$ \& Dag\+Node\+::get\+Childrens (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the list of current node\textquotesingle{}s childrens. 
+
+\begin{DoxyReturn}{Returns}
+childrens -\/ the list of pointers from the current dag\textquotesingle{}s node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a35869cdb3ff3900d2ed4366270a39b83}\label{classDagNode_a35869cdb3ff3900d2ed4366270a39b83}} 
+\index{Dag\+Node@{Dag\+Node}!get\+First\+Child@{get\+First\+Child}}
+\index{get\+First\+Child@{get\+First\+Child}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+First\+Child()}{getFirstChild()}}
+{\footnotesize\ttfamily \hyperlink{classDagNode}{Dag\+Node} $\ast$ Dag\+Node\+::get\+First\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the pointer of the first child of the dag node. 
+
+\begin{DoxyReturn}{Returns}
+the first children of the dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a301eaa7093739ce7892020a2a4c32cfd}\label{classDagNode_a301eaa7093739ce7892020a2a4c32cfd}} 
+\index{Dag\+Node@{Dag\+Node}!get\+Second\+Child@{get\+Second\+Child}}
+\index{get\+Second\+Child@{get\+Second\+Child}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+Second\+Child()}{getSecondChild()}}
+{\footnotesize\ttfamily \hyperlink{classDagNode}{Dag\+Node} $\ast$ Dag\+Node\+::get\+Second\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the pointer of the second child of the dag node. 
+
+\begin{DoxyReturn}{Returns}
+the second children of the dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_afd0111a6b8b906c0ac68914436f2db0d}\label{classDagNode_afd0111a6b8b906c0ac68914436f2db0d}} 
+\index{Dag\+Node@{Dag\+Node}!get\+The\+Lower\+Triangle\+Index\+From\+Childrens@{get\+The\+Lower\+Triangle\+Index\+From\+Childrens}}
+\index{get\+The\+Lower\+Triangle\+Index\+From\+Childrens@{get\+The\+Lower\+Triangle\+Index\+From\+Childrens}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+The\+Lower\+Triangle\+Index\+From\+Childrens()}{getTheLowerTriangleIndexFromChildrens()}}
+{\footnotesize\ttfamily size\+\_\+t Dag\+Node\+::get\+The\+Lower\+Triangle\+Index\+From\+Childrens (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the value of the minimux index between the current node\textquotesingle{}s childrens. 
+
+\begin{DoxyReturn}{Returns}
+the minimun triangle index between the childrens 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a6a7af1fc33b66e3a22ebcf1b7da4f482}\label{classDagNode_a6a7af1fc33b66e3a22ebcf1b7da4f482}} 
+\index{Dag\+Node@{Dag\+Node}!get\+Third\+Child@{get\+Third\+Child}}
+\index{get\+Third\+Child@{get\+Third\+Child}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+Third\+Child()}{getThirdChild()}}
+{\footnotesize\ttfamily \hyperlink{classDagNode}{Dag\+Node} $\ast$ Dag\+Node\+::get\+Third\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the pointer of the third child of the dag node. 
+
+\begin{DoxyReturn}{Returns}
+the third children of the dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_a5ff9ecbb6e1a5008c5b833afc8f08bab}\label{classDagNode_a5ff9ecbb6e1a5008c5b833afc8f08bab}} 
+\index{Dag\+Node@{Dag\+Node}!get\+Triangle\+Index@{get\+Triangle\+Index}}
+\index{get\+Triangle\+Index@{get\+Triangle\+Index}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{get\+Triangle\+Index()}{getTriangleIndex()}}
+{\footnotesize\ttfamily const size\+\_\+t \& Dag\+Node\+::get\+Triangle\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the triangle index stored in the node. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+triangle\+Index -\/ the triangle index stored in the dag node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDagNode_af3ed3a5eed4cb9bf04ec6ad9b6877cce}\label{classDagNode_af3ed3a5eed4cb9bf04ec6ad9b6877cce}} 
+\index{Dag\+Node@{Dag\+Node}!is\+A\+Leaf@{is\+A\+Leaf}}
+\index{is\+A\+Leaf@{is\+A\+Leaf}!Dag\+Node@{Dag\+Node}}
+\subsubsection{\texorpdfstring{is\+A\+Leaf()}{isALeaf()}}
+{\footnotesize\ttfamily bool Dag\+Node\+::is\+A\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the current dag node is a leaf. 
+
+\begin{DoxyReturn}{Returns}
+true if the dag node doesn\textquotesingle{}t got any child, false otherwise 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/jarvis/as2-\/project-\/\+Giacomo\+Meloni/\+G\+A\+S\+\_\+2019\+\_\+\+Delaunay/data\+\_\+structures/dagnode.\+h\end{DoxyCompactItemize}
