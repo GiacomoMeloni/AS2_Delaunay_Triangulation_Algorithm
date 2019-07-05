@@ -8,10 +8,8 @@
 #include <cg3/viewer/drawable_objects/2d/drawable_bounding_box2d.h>
 
 #include "../drawable/drawableboundingtriangle.h"
-#include "../drawable/drawabledelauneytriangulation.h"
+#include "../drawable/drawabledelaunaytriangulation.h"
 #include "../drawable/drawablevoronoidiagram.h"
-
-
 
 namespace Ui {
     class DelaunayManager;
@@ -46,7 +44,7 @@ private:
     /********************************************************************************************************************/
 
     DrawableBoundingTriangle boundingTriangle;
-    DrawableDelauneyTriangulation delaunayTriangulation;
+    DrawableDelaunayTriangulation delaunayTriangulation;
     DrawableVoronoiDiagram voronoiDiagram;
 
     /********************************************************************************************************************/

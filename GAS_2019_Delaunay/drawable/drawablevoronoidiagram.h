@@ -4,7 +4,7 @@
 #include <cg3/utilities/color.h>
 #include "cg3/viewer/interfaces/drawable_object.h"
 #include "cg3/viewer/renderable_objects/2d/renderable_objects2d.h"
-#include "../algorithms/delauneytriangulation.h"
+#include "../algorithms/delaunaytriangulationalgorithm.h"
 
 /**
  * @brief Class representing the drawable voronoi diagram. This class inherit to cg3::DrawableObject.
