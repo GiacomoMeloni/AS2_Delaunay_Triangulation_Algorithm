@@ -14,9 +14,9 @@ class DagNode
         inline DagNode(size_t &idexOftriangle);
 
         /* --- Getter --- */
-        inline size_t getTriangleIndex() const;
-        inline std::vector<DagNode*> getChildrens() const;
-        inline std::vector<DagNode*> getAdjacencies() const;
+        inline const size_t& getTriangleIndex() const;
+        inline const std::vector<DagNode*>& getChildrens() const;
+        inline std::vector<DagNode*>& getAdjacencies();
         inline DagNode* getFirstChild() const;
         inline DagNode* getSecondChild() const;
         inline DagNode* getThirdChild() const;
@@ -30,8 +30,6 @@ class DagNode
         inline bool checkNumberOfChildrens() const;
         inline bool isALeaf() const;
         inline void changeAdjacencies(DagNode* old, DagNode* current);
-
-        inline void clearNode();
 
     protected:
         size_t _triangleIndex;
@@ -60,7 +58,7 @@ inline DagNode::DagNode(size_t &indexOftriangle){
  * @brief Get the triangle index stored in the node
  * @return _triangleIndex - the triangle index stored in the dag node
  */
-inline size_t DagNode::getTriangleIndex() const{
+inline const size_t& DagNode::getTriangleIndex() const{
     return this->_triangleIndex;
 }
 
@@ -68,7 +66,7 @@ inline size_t DagNode::getTriangleIndex() const{
  * @brief Get the list of node's childrens
  * @return childrens - the list of pointers from the current dag's node
  */
-inline std::vector<DagNode*> DagNode::getChildrens() const{
+inline const std::vector<DagNode*>& DagNode::getChildrens() const{
     return this->_childrens;
 }
 
@@ -76,18 +74,30 @@ inline std::vector<DagNode*> DagNode::getChildrens() const{
  * @brief Get the list of triangle's indeces ajacent to the triangle pointed by the current node
  * @return _ajacencies - the list of triangle's indeces adjacet with the current node's triangle
  */
-inline std::vector<DagNode*> DagNode::getAdjacencies() const{
+inline std::vector<DagNode*>& DagNode::getAdjacencies() {
     return this-> _adjacencies;
 }
 
+/**
+ * @brief Get the pointer of the first child of the dag node
+ * @return the first children of the dag node
+ */
 inline DagNode* DagNode::getFirstChild() const{
     return this->_childrens[0];
 }
 
+/**
+ * @brief Get the pointer of the second child of the dag node
+ * @return the second children of the dag node
+ */
 inline DagNode* DagNode::getSecondChild() const{
     return this->_childrens[1];
 }
 
+/**
+ * @brief Get the pointer of the third child of the dag node
+ * @return the third children of the dag node
+ */
 inline DagNode* DagNode::getThirdChild() const{
     return this->_childrens[2];
 }
@@ -103,6 +113,11 @@ inline void DagNode::addChild(DagNode* newNode){
     }
 }
 
+/**
+ * @brief Add a pointer to a new reference of the adjacent node
+ * @param adjacentNode - the pointer of the dag node adjacent at the current one
+ * @return add the node in the list of adjacencies of the current dag node
+ */
 inline void DagNode::addAdjacencies(DagNode* &adjacentNode){
     this->_adjacencies.push_back(adjacentNode);
 }
@@ -123,36 +138,35 @@ inline bool DagNode::isALeaf () const{
     return _childrens.empty();
 }
 
-inline void DagNode::changeAdjacencies(DagNode* old, DagNode* current){
+/**
+ * @brief Replace the old adjacent node with the new one
+ * @param oldAdjacent the pointer to the old adjacent node
+ * @param newAdjacent the pointer to the new adjacent
+ * @return true if the dag node doesn't got any child, false otherwise
+ */
+inline void DagNode::changeAdjacencies(DagNode* oldAdjacent, DagNode* newAdjacent){
     bool changed = false;
     for (size_t i = 0; i < getAdjacencies().size() && changed != true; i++){
-        if (_adjacencies[i] == old){
-            _adjacencies[i] = current;
+        if (_adjacencies[i] == oldAdjacent){
+            _adjacencies[i] = newAdjacent;
             changed = true;
         }
     }
 }
 
+/**
+ * @brief Get the value of the minimux index between the current node's childrens
+ * @return the minimun triangle index between the childrens
+ */
 inline size_t DagNode::getTheLowerTriangleIndexFromChildrens() const{
-    size_t mininum = getChildrens()[0]->getTriangleIndex();
+    size_t mininum = _childrens[0]->getTriangleIndex();
 
-    for (size_t i = 1; i<getChildrens().size(); i++)
+    for (size_t i = 1; i<_childrens.size(); i++)
     {
-        if (getChildrens()[i]->getTriangleIndex()<mininum)
-            mininum = getChildrens()[i]->getTriangleIndex();
+        if (_childrens[i]->getTriangleIndex()<mininum)
+            mininum = _childrens[i]->getTriangleIndex();
     }
     return mininum;
-}
-
-inline void DagNode::clearNode(){
-    for (DagNode* node : getChildrens()){
-        delete node;
-    }
-    this->_childrens.clear();
-    for (DagNode* node : getAdjacencies()){
-        delete node;
-    }
-    this->_adjacencies.clear();
 }
 
 #endif // DAG_H

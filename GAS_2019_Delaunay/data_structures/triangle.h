@@ -18,9 +18,9 @@ class Triangle
         inline Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3, const bool &isALeaf);
 
         /* --- Getters --- */
-        inline const cg3::Point2Dd getV1() const;
-        inline const cg3::Point2Dd getV2() const;
-        inline const cg3::Point2Dd getV3() const;
+        inline const cg3::Point2Dd& getV1() const;
+        inline const cg3::Point2Dd& getV2() const;
+        inline const cg3::Point2Dd& getV3() const;
         inline const std::vector<cg3::Point2Dd> getVertices() const;
         inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> getEdges() const;
         inline bool getIsALeaf() const;
@@ -57,10 +57,10 @@ inline Triangle::Triangle(){
 }
 
 /**
- * @brief Constructor with the points (counter-clockwise)
- * @param v1 - reference of the first vertex
- * @param v2 - reference of the second vertex
- * @param v3 - reference of the third vertex
+ * @brief Constructor with the points (counter-clockwise), if not specified the attribute _isALeaf, used to check if a triangle is part of the triangulation, is setted to false
+ * @param v1 reference of the first vertex
+ * @param v2 reference of the second vertex
+ * @param v3 reference of the third vertex
  */
 inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3){
     this->_v1 = v1;
@@ -74,6 +74,13 @@ inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const
     this->_isALeaf = false;
 }
 
+/**
+ * @brief Constructor with the points (counter-clockwise)
+ * @param v1 reference of the first vertex
+ * @param v2 reference of the second vertex
+ * @param v3 reference of the third vertex
+ * @param isALeaf set the status of triangle
+ */
 inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const cg3::Point2Dd& v3, const bool &isALeaf){
     this->_v1 = v1;
     this->_v2 = v2;
@@ -88,32 +95,32 @@ inline Triangle::Triangle (const cg3::Point2Dd& v1,const cg3::Point2Dd& v2,const
 
 
 /**
- * @brief Get the first vertex of the triangle
- * @return _v1 - the reference of the first triangle's vertex
+ * @brief Get the reference of the first vertex of the triangle
+ * @return _v1 the reference of the first triangle's vertex
  */
-inline const cg3::Point2Dd Triangle::getV1() const {
+inline const cg3::Point2Dd& Triangle::getV1() const {
     return this->_v1;
 }
 
 /**
- * @brief Get the second vertex of the triangle
- * @return _v2 - the reference of the second triangle's vertex
+ * @brief Get the reference of the second vertex of the triangle
+ * @return _v2 the reference of the second triangle's vertex
  */
-inline const cg3::Point2Dd Triangle::getV2() const {
+inline const cg3::Point2Dd& Triangle::getV2() const {
     return this->_v2;
 }
 
 /**
- * @brief Get the third vertex of the triangle
- * @return _v3 - the reference of the third triangle's vertex
+ * @brief Get the reference of the third vertex of the triangle
+ * @return _v3 the reference of the third triangle's vertex
  */
-inline const cg3::Point2Dd Triangle::getV3() const {
+inline const cg3::Point2Dd& Triangle::getV3() const {
     return this->_v3;
 }
 
 /**
  * @brief Get the vertices of the triangle
- * @return _vertices - the list of triangle's vertices
+ * @return _vertices the list of triangle's vertices
  */
 inline const std::vector<cg3::Point2Dd> Triangle::getVertices() const {
     std::vector<cg3::Point2Dd> _vertices;
@@ -126,7 +133,7 @@ inline const std::vector<cg3::Point2Dd> Triangle::getVertices() const {
 
 /**
  * @brief Get the edges of the triangle
- * @return _edges - the list of triangle's edges
+ * @return _edges the list of triangle's edges
  */
 inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> Triangle::getEdges() const{
     std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> _edges;
@@ -138,13 +145,17 @@ inline std::vector<std::pair <cg3::Point2Dd, cg3::Point2Dd>> Triangle::getEdges(
     return _edges;
 }
 
+/**
+ * @brief Get the status of the triangle (if is a leaf or not, considering the dag)
+ * @return _isALeaf the status of the triangle inside the dag
+ */
 inline bool Triangle::getIsALeaf() const{
     return this->_isALeaf;
 }
 
 /**
  * @brief Set the value of the first vertex
- * @param v - reference of the new vertex value
+ * @param v reference of the new vertex value
  * @return new value of first vertex
  */
 inline void Triangle::setV1(const cg3::Point2Dd &v){
@@ -153,7 +164,7 @@ inline void Triangle::setV1(const cg3::Point2Dd &v){
 
 /**
  * @brief Set the value of the second vertex
- * @param v - vertex
+ * @param v reference of the new vertex value
  * @return new value of second vertex
  */
 inline void Triangle::setV2(const cg3::Point2Dd &v){
@@ -162,7 +173,7 @@ inline void Triangle::setV2(const cg3::Point2Dd &v){
 
 /**
  * @brief Set the value of the third vertex
- * @param v - vertex
+ * @param v reference of the new vertex value
  * @return new value of third vertex
  */
 inline void Triangle::setV3(const cg3::Point2Dd &v){
@@ -171,9 +182,9 @@ inline void Triangle::setV3(const cg3::Point2Dd &v){
 
 /**
  * @brief Set the vertices of the triangle
- * @param v1 - reference of the new value of the first vertex
- * @param v2 - reference of the new value of the second vertex
- * @param v3 - reference of the new value of the third vertex
+ * @param v1 reference of first vertex's new value
+ * @param v2 reference of second vertex's new value
+ * @param v3 reference of third vertex's new value
  * @return new values for the vertices of the triangle
  */
 inline void Triangle::setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &v2, const cg3::Point2Dd &v3){
@@ -182,10 +193,19 @@ inline void Triangle::setVertices(const cg3::Point2Dd &v1, const cg3::Point2Dd &
     this->_v3 = v3;
 }
 
+/**
+ * @brief Set the status of the triangle
+ * @param status the new triangle's status
+ * @return new status of the triangle
+ */
 inline void Triangle::setIsALeaf(bool status){
     this->_isALeaf = status;
 }
 
+/**
+ * @brief Return triangle's center
+ * @return the center point inside the triangle
+ */
 inline cg3::Point2Dd Triangle::getCenter() const{
     double centX = 0.0;
     double centY = 0.0;
@@ -199,6 +219,10 @@ inline cg3::Point2Dd Triangle::getCenter() const{
     return *new cg3::Point2Dd (centX,centY);
 }
 
+/**
+ * @brief Return triangle's hypotenuse
+ * @return the hypotenuse's value of the triangle
+ */
 inline double Triangle::getHypotenuse() const{
     return std::max({
                 this->getV1().dist(this->getV2()),
@@ -234,6 +258,11 @@ inline void Triangle::orderingCounterClockwise(){
     this->_v3 = temp;
 }
 
+/**
+ * @brief Check if the current triangle and the other given in input are adjacent (share two of the three vertices)
+ * @param triangle is the other triangle to check
+ * @return true if the tiangles are Adjacent, false otherwise
+ */
 inline bool Triangle::isAdjacent(const Triangle &triangle){
     bool firstcheck = false;
 

@@ -12,28 +12,30 @@
 class DelauneyTriangulation
 {
     public:
+        /* --- Constructor --- */
         inline DelauneyTriangulation();
         inline DelauneyTriangulation(const Triangle &boundingTriangle);
         inline ~DelauneyTriangulation();
 
+        /* --- Getters --- */
         inline const std::vector<Triangle>& getTriangles() const;
         inline DagNode* getDAG() const;
         inline std::vector<Triangle> getLeaves() const;
         cg3::Point2Dd getOppositePoint(const Triangle &currentTriangle, const Triangle &adjacentTriangle);
         inline std::vector<DagNode*>& getAllDagNodes();
+        DagNode* getChildContainsPoint(DagNode* &currentNode, const cg3::Point2Dd &point);
 
+        /* --- Setters --- */
         inline void addTriangleToTriangulation (const Triangle &newTriangle);
 
+        /* --- Methods --- */
         void updateAdjacencies(DagNode* father, DagNode* child, DagNode* nodeOfFirstBrother, DagNode* nodeOfSecondBrother);
         void updateAdjacenciesOnBrothers(DagNode* adjacent, DagNode* splittedBrother);
         void updateAdjacenciesOnEdgeFlip(DagNode* father_1, DagNode* father_2, DagNode* child, DagNode* brotherNode);
-        inline bool isPointInNode(DagNode* &currentNode, const cg3::Point2Dd &point) const;
-        DagNode* getChildContainsPoint(DagNode* &currentNode, const cg3::Point2Dd &point);
+        inline bool isPointInNode(DagNode* &currentNode, const cg3::Point2Dd &point) const;        
         void makeSplits(DagNode* currentNode, const cg3::Point2Dd &newPoint);
         void addPointToTriangulation (const cg3::Point2Dd &newPoint);
         void legalizeEdge (DagNode* node, size_t lowerBrotherIndex);
-
-        inline void collectNodes (DagNode* node, std::vector<DagNode*> &allDagNodes);
         inline void clearDelaunayTriangulation();
 
 
