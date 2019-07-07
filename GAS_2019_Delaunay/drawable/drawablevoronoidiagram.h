@@ -49,7 +49,7 @@ inline DrawableVoronoiDiagram::DrawableVoronoiDiagram() {
     this->_triangles = nullptr;
 
     setEdgeColor(*new QColor(0,255,0));
-    setPointColor(*new QColor(255,0,0));
+    setPointColor(*new QColor(0,0,255));
     setEdgeWidth(1);
     setPointSize(3);
 }
@@ -64,7 +64,7 @@ inline DrawableVoronoiDiagram::DrawableVoronoiDiagram(std::vector<DagNode*> *all
     this->_allDagNodes = allNodes;
     this->_triangles = triangles;
     setEdgeColor(*new QColor(0,255,0));
-    setPointColor(*new QColor(255,0,0));
+    setPointColor(*new QColor(0,0,255));
     setEdgeWidth(1);
     setPointSize(3);
 }

@@ -87,7 +87,7 @@ void DelaunayTriangulationAlgorithm::updateAdjacenciesOnEdgeFlip(DagNode* father
  * @param splittedBrother is the pointer to the splitted node.
  */
 void DelaunayTriangulationAlgorithm::updateAdjacenciesOnBrothers(DagNode* adjacent, DagNode* splittedBrother){
-    for (DagNode* children : splittedBrother->getChildrens()){
+    for (DagNode* children : splittedBrother->getChildren()){
         if (_delaunayTriangles[children->getTriangleIndex()].isAdjacent(_delaunayTriangles[adjacent->getTriangleIndex()])){
             adjacent->changeAdjacencies(splittedBrother,children);
             break;
@@ -154,7 +154,7 @@ void DelaunayTriangulationAlgorithm::legalizeEdge(DagNode* node, size_t lowerBro
                 this->_allNodeCollection.push_back(node->getFirstChild());
                 this->_allNodeCollection.push_back(node->getSecondChild());
 
-                size_t referenceBrothersIndex = node->getTheLowerTriangleIndexFromChildrens();
+                size_t referenceBrothersIndex = node->getTheLowerTriangleIndexFromChildren();
 
                 legalizeEdge(node->getFirstChild(),referenceBrothersIndex);
                 legalizeEdge(node->getSecondChild(),referenceBrothersIndex);
@@ -174,7 +174,7 @@ void DelaunayTriangulationAlgorithm::legalizeEdge(DagNode* node, size_t lowerBro
  * scrolling through the list of children, it is checked which contains the node and is then returned.*/
 
 DagNode* DelaunayTriangulationAlgorithm::getChildContainsPoint(DagNode* &currentNode, const cg3::Point2Dd &point){
-    for (DagNode *node : currentNode->getChildrens()){
+    for (DagNode *node : currentNode->getChildren()){
         if (cg3::isPointLyingInTriangle(
                     this->_delaunayTriangles[node->getTriangleIndex()].getV1(),
                     this->_delaunayTriangles[node->getTriangleIndex()].getV2(),
@@ -262,7 +262,7 @@ void DelaunayTriangulationAlgorithm::addPointToTriangulation(const cg3::Point2Dd
             /*referenceBrothersIndex is used to avoid checking brothers of newly created triangles
              * as adjacencies in the legalizeEdge function*/
 
-            size_t referenceBrothersIndex = check->getTheLowerTriangleIndexFromChildrens();
+            size_t referenceBrothersIndex = check->getTheLowerTriangleIndexFromChildren();
 
             /*Here we check before sending the function legalize if the newly created triangles
              * have more than two adjacencies (so they have different adjacencies beyond the brothers).
