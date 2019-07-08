@@ -39,8 +39,8 @@ class DrawableDelaunayTriangulation : public cg3::DrawableObject, public Delauna
  * @brief Default constructor. The attributes are setted staticaly, calling the related methods.
  */
 inline DrawableDelaunayTriangulation::DrawableDelaunayTriangulation() {
-    setEdgeColor(*new QColor(0,0,255));
-    setPointColor(*new QColor(255,0,0));
+    setEdgeColor(QColor(0,0,255));
+    setPointColor(QColor(255,0,0));
     setEdgeWidth(1);
     setPointSize(3);
 }
@@ -51,8 +51,8 @@ inline DrawableDelaunayTriangulation::DrawableDelaunayTriangulation() {
  * @param boundingTriangle the reference of the bounding triangle.
  */
 inline DrawableDelaunayTriangulation::DrawableDelaunayTriangulation(const Triangle &boundingTriangle):DelaunayTriangulationAlgorithm (boundingTriangle) {
-    setEdgeColor(*new QColor(0,0,255));
-    setPointColor(*new QColor(255,0,0));
+    setEdgeColor(QColor(0,0,255));
+    setPointColor(QColor(255,0,0));
     setEdgeWidth(1);
     setPointSize(3);
 }
@@ -62,7 +62,7 @@ inline DrawableDelaunayTriangulation::DrawableDelaunayTriangulation(const Triang
  * @return
  */
 inline cg3::Pointd DrawableDelaunayTriangulation::sceneCenter() const{
-    return *new cg3::Pointd (0, 0, 0);
+    return cg3::Pointd (0, 0, 0);
 }
 
 /**

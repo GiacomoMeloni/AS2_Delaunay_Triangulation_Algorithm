@@ -78,9 +78,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDagNode.html#a4ed19a5e9d5ada51128fcc181f9830ae">DagNode</a> ()</td></tr>
 <tr class="memdesc:a4ed19a5e9d5ada51128fcc181f9830ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:a4ed19a5e9d5ada51128fcc181f9830ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad44cf14086cd653ba9ede6762da32e83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDagNode.html#ad44cf14086cd653ba9ede6762da32e83">DagNode</a> (size_t &amp;idexOftriangle)</td></tr>
-<tr class="memdesc:ad44cf14086cd653ba9ede6762da32e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dag node constructor with the triangle's index.  <a href="#ad44cf14086cd653ba9ede6762da32e83">More...</a><br /></td></tr>
-<tr class="separator:ad44cf14086cd653ba9ede6762da32e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add2a400bc282195020af9e32ada5b427"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDagNode.html#add2a400bc282195020af9e32ada5b427">DagNode</a> (const size_t &amp;idexOftriangle)</td></tr>
+<tr class="memdesc:add2a400bc282195020af9e32ada5b427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dag node constructor with the triangle's index.  <a href="#add2a400bc282195020af9e32ada5b427">More...</a><br /></td></tr>
+<tr class="separator:add2a400bc282195020af9e32ada5b427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ff9ecbb6e1a5008c5b833afc8f08bab"><td class="memItemLeft" align="right" valign="top">const size_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDagNode.html#a5ff9ecbb6e1a5008c5b833afc8f08bab">getTriangleIndex</a> () const</td></tr>
 <tr class="memdesc:a5ff9ecbb6e1a5008c5b833afc8f08bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the triangle index stored in the node.  <a href="#a5ff9ecbb6e1a5008c5b833afc8f08bab">More...</a><br /></td></tr>
 <tr class="separator:a5ff9ecbb6e1a5008c5b833afc8f08bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,8 +130,8 @@ std::vector&lt; <a class="el" href="classDagNode.html">DagNode</a> * &gt;&#160;<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing a DAG node. A DAG node contain the index of the triangle in the array of the relative delauney triangulation class; a list of <a class="el" href="classDagNode.html" title="Class representing a DAG node. A DAG node contain the index of the triangle in the array of the relat...">DagNode</a> pointers to childrens; a list of <a class="el" href="classDagNode.html" title="Class representing a DAG node. A DAG node contain the index of the triangle in the array of the relat...">DagNode</a> pointers to the adjacent triangles that is updated every time something happens to the triangulation. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad44cf14086cd653ba9ede6762da32e83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad44cf14086cd653ba9ede6762da32e83">&#9670;&nbsp;</a></span>DagNode()</h2>
+<a id="add2a400bc282195020af9e32ada5b427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2a400bc282195020af9e32ada5b427">&#9670;&nbsp;</a></span>DagNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,7 +142,7 @@ std::vector&lt; <a class="el" href="classDagNode.html">DagNode</a> * &gt;&#160;<
         <tr>
           <td class="memname">DagNode::DagNode </td>
           <td>(</td>
-          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramtype">const size_t &amp;&#160;</td>
           <td class="paramname"><em>indexOftriangle</em></td><td>)</td>
           <td></td>
         </tr>

@@ -20,6 +20,11 @@ class DelaunayTriangulationAlgorithm
         inline DelaunayTriangulationAlgorithm();
         inline DelaunayTriangulationAlgorithm(const Triangle &boundingTriangle);
         inline ~DelaunayTriangulationAlgorithm();
+        DelaunayTriangulationAlgorithm(const DelaunayTriangulationAlgorithm& dT);
+        inline DelaunayTriangulationAlgorithm(DelaunayTriangulationAlgorithm&& dT);
+
+        DelaunayTriangulationAlgorithm& operator= (DelaunayTriangulationAlgorithm dT);
+        DelaunayTriangulationAlgorithm& operator= (DelaunayTriangulationAlgorithm&& dT);
 
         /* --- Getters --- */
         inline const std::vector<Triangle>& getTriangles() const;
@@ -41,6 +46,7 @@ class DelaunayTriangulationAlgorithm
         void addPointToTriangulation (const cg3::Point2Dd &newPoint);
         void legalizeEdge (DagNode* node, size_t lowerBrotherIndex);
         inline void clearDelaunayTriangulation();
+        inline void swap (DelaunayTriangulationAlgorithm& dT);
 
 
     protected:
@@ -65,7 +71,7 @@ inline DelaunayTriangulationAlgorithm::DelaunayTriangulationAlgorithm(const Tria
     this->_delaunayTriangles.push_back(boundingTriangle);
     size_t indexOfTriangle = _delaunayTriangles.size()-1;
     this->_dag = new DagNode(indexOfTriangle);
-    this->_allNodeCollection={};
+    this->_allNodeCollection.push_back(this->_dag);
 }
 
 /**
@@ -73,6 +79,18 @@ inline DelaunayTriangulationAlgorithm::DelaunayTriangulationAlgorithm(const Tria
  **/
 inline DelaunayTriangulationAlgorithm::~DelaunayTriangulationAlgorithm(){
     clearDelaunayTriangulation();
+}
+
+/**
+ * @brief Move Constructor.
+ * @param dT r-value DelaunayTriangulationAlgorithm class to move
+ **/
+inline DelaunayTriangulationAlgorithm::DelaunayTriangulationAlgorithm(DelaunayTriangulationAlgorithm&& dT){
+    this->_delaunayTriangles = std::move(dT._delaunayTriangles);
+    this->_dag = dT._dag;
+    this->_allNodeCollection = std::move(dT._allNodeCollection);
+
+    dT._dag = nullptr;
 }
 
 /**
@@ -148,6 +166,16 @@ inline void DelaunayTriangulationAlgorithm::clearDelaunayTriangulation (){
         delete node;
     }
     this->_allNodeCollection.clear();
+}
+
+/**
+ * @brief swap support function
+ * @param dT the DelaunayTriangulationAlgorithm class reference to swap
+ */
+inline void DelaunayTriangulationAlgorithm::swap (DelaunayTriangulationAlgorithm& dT){
+    std::swap(this->_delaunayTriangles,dT._delaunayTriangles);
+    std::swap(this->_dag,dT._dag);
+    std::swap(this->_allNodeCollection,dT._allNodeCollection);
 }
 
 #endif // DELAUNEYTRIANGULATION_H

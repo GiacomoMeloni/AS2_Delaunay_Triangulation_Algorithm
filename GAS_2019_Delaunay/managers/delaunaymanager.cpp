@@ -56,7 +56,7 @@ DelaunayManager::DelaunayManager(QWidget *parent) :
     boundingBox(cg3::Point2Dd(-BOUNDINGBOX, -BOUNDINGBOX),
                 cg3::Point2Dd(BOUNDINGBOX, BOUNDINGBOX)),
     boundingTriangle(BT_P1,BT_P2,BT_P3),
-    delaunayTriangulation(*new Triangle(BT_P1,BT_P2,BT_P3,true)),
+    delaunayTriangulation(Triangle(BT_P1,BT_P2,BT_P3,true)),
     voronoiDiagram()
 {
     //UI setup
@@ -160,7 +160,7 @@ void DelaunayManager::computeDelaunayTriangulation(const std::vector<cg3::Point2
     }
 
     /********************************************************************************************************************/
-    CG3_SUPPRESS_WARNING(inputPoints);
+    //CG3_SUPPRESS_WARNING(inputPoints);
 }
 
 /**
@@ -174,7 +174,7 @@ void DelaunayManager::addPointToDelaunayTriangulation(const cg3::Point2Dd& p) {
     delaunayTriangulation.addPointToTriangulation(p);
 
     /********************************************************************************************************************/
-    CG3_SUPPRESS_WARNING(p);
+    //CG3_SUPPRESS_WARNING(p);
 }
 
 /**

@@ -1,6 +1,56 @@
 #include "delaunaytriangulationalgorithm.h"
 
 /**
+ * @brief Copy Constructor
+ * @param dT the DelaunayTriangulationAlgorithm class to copy
+ */
+DelaunayTriangulationAlgorithm::DelaunayTriangulationAlgorithm(const DelaunayTriangulationAlgorithm& dT){
+    this->_delaunayTriangles = dT._delaunayTriangles;
+    std::map<size_t,DagNode*> indexMap;
+    for (DagNode* node : dT._allNodeCollection){
+        this->_allNodeCollection.push_back(new DagNode(node->getTriangleIndex()));
+        indexMap.insert(std::pair<size_t,DagNode*> (node->getTriangleIndex(),this->_allNodeCollection.back()));
+    }
+
+    for (size_t i = 0; i < this->_allNodeCollection.size(); i++){
+        for(DagNode* child : dT._allNodeCollection[i]->getChildren()){
+            DagNode* newChild = indexMap.at(child->getTriangleIndex());
+            this->_allNodeCollection[i]->addChild(newChild);
+        }
+
+        for(DagNode* adjacent : dT._allNodeCollection[i]->getAdjacencies()){
+            DagNode* newAdjacent = indexMap.at(adjacent->getTriangleIndex());
+            this->_allNodeCollection[i]->addAdjacencies(newAdjacent);
+        }
+    }
+    this->_dag = this->_allNodeCollection.front();
+}
+
+/**
+ * @brief operator=
+ * @param dT the DelaunayTriangulationAlgorithm class to swap
+ */
+DelaunayTriangulationAlgorithm& DelaunayTriangulationAlgorithm::operator= (DelaunayTriangulationAlgorithm dT){
+    DelaunayTriangulationAlgorithm::swap(dT);
+    return *this;
+}
+
+/**
+ * @brief operator=
+ * @param dT r-value DelaunayTriangulationAlgorithm class to swap
+ */
+DelaunayTriangulationAlgorithm& DelaunayTriangulationAlgorithm::operator= (DelaunayTriangulationAlgorithm&& dT){
+    delete(this->_dag);
+
+    std::swap(this->_delaunayTriangles,dT._delaunayTriangles);
+    std::swap(this->_dag,dT._dag);
+    std::swap(this->_allNodeCollection,dT._allNodeCollection);
+
+    return *this;
+}
+
+
+/**
  * @brief getOppositePoint get the point opposite the triangle under consideration.
  * @param currentTriangle is the pointer to the node under consideration.
  * @param adjacentTriangle is the pointer to the node adjacent to currentTriangle.

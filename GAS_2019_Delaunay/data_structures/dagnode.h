@@ -18,7 +18,7 @@ class DagNode
 
         /* --- Constructor --- */
         inline DagNode();
-        inline DagNode(size_t &idexOftriangle);
+        inline DagNode(const size_t &idexOftriangle);
 
         /* --- Getter --- */
         inline const size_t& getTriangleIndex() const;
@@ -54,7 +54,7 @@ inline DagNode::DagNode(){
  * @brief Dag node constructor with the triangle's index
  * @param indexOfTriangle - the index of the triangle
  */
-inline DagNode::DagNode(size_t &indexOftriangle){
+inline DagNode::DagNode(const size_t &indexOftriangle){
     this->_triangleIndex = indexOftriangle;
     this->_children = {};
     this->_adjacencies = {};
